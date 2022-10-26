@@ -9,4 +9,6 @@ path("login",views.login_user,name="login_user"),
 path("login_user_form",views.login_form,name="login_form"),
 path("signup",views.create_user,name="create"),
 path("create_user_form",views.create_user_form,name="create_form"),
+path("contact_us",views.contact_us,name="contact_us"),
+path("submit_contact_form",views.submit_contact_form,name="submit_contact_form"),
 ]
