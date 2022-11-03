@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.auth.models import User
+
 
 # Create your models here.
 class contact(models.Model):
@@ -10,3 +12,8 @@ class contact(models.Model):
 
     def __str__(self):
         return self.name
+
+class users_data(models.Model):
+    f_key = models.ForeignKey(User,on_delete=models.CASCADE)
+    data = models.TextField()
+    fetch_done = models.BooleanField()
