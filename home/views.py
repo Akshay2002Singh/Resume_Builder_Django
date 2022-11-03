@@ -2,6 +2,7 @@ from django.shortcuts import redirect,render
 from django.contrib.auth import authenticate, login ,logout
 from django.contrib.auth.models import User
 from home.models import contact
+from .fetchdata import api_call
 # Create your views here.
 def index(request):
     context = {
@@ -70,3 +71,15 @@ def submit_contact_form(request):
         temp_contact.save()
 
         return render(request,'contact_us.html',context)
+
+def generate_data(request):
+    return render(request,'generate.html')
+
+def generate_data_form(request):
+    if request.method == 'POST':
+        git = request.POST.get('Github')
+        linked = request.POST.get('LinkedIn')
+        print(git)
+        print(linked)
+        api_call(git,linked)
+    return render(request,'generate.html')
