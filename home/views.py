@@ -1,8 +1,9 @@
 from django.shortcuts import redirect,render
 from django.contrib.auth import authenticate, login ,logout
 from django.contrib.auth.models import User
-from home.models import contact
+from home.models import contact,users_data
 from .fetchdata import api_call
+import threading
 # Create your views here.
 def index(request):
     context = {
@@ -79,7 +80,12 @@ def generate_data_form(request):
     if request.method == 'POST':
         git = request.POST.get('Github')
         linked = request.POST.get('LinkedIn')
-        print(git)
-        print(linked)
-        api_call(git,linked)
+        data_entry = users_data(f_key=request.user,fetch_done = 0)
+        data_entry.save()
+        # print(git)
+        # print(linked)
+        thread = threading.Thread(target=api_call,args=(git,linked,request))
+        thread.start()
+        # api_call(git,linked,request)
+        
     return render(request,'generate.html')
