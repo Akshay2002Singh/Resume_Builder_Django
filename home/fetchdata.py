@@ -117,12 +117,12 @@ def api_call(git,linked,request):
         # print("Data can not be retrived")
         data_dic["success"] = 0
 
-    
+    print
     # fetch github data 
     # username="Akshay2002Singh"
     username = git
     apistring=f"https://api.github.com/users/{username}/repos"
-    headers={"Authorization":"Bearer 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"}
+    headers={"Authorization":"Bearer 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"}
     try:
         jsonresponse=requests.get(apistring,headers=headers).json()
         print()
@@ -178,4 +178,3 @@ def api_call(git,linked,request):
     temp.fetch_done = 1
     temp.save()
 # api_call("Akshay2002Singh","akshay-singh-elite")
-

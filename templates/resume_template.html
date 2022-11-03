@@ -17,10 +17,10 @@
         <div class="border-b-2 border-double border-black">
             <ul class="list-none text-center border-b-2 border-double border-black mb-1">
                 <li class="text-5xl font-black">
-                    AKSHAY SINGH
+                    {{user.f_key}}
                 </li>
                 <li class="text-2xl font-bold">
-                    Python Developer
+                    {{intro.Summary}}
                 </li>
                 <li class="text-xl mb-3">
                     Email: 06akshay2002@gmail.com || Mobile: 9305224328
@@ -35,24 +35,28 @@
                 <div>
                     <h1 class="text-2xl font-bold mb-2">EDUCATION</h1>
                     <!-- college -->
-                    <p class="font-bold">Bachelor of Technology (B.Tech), Computer Science</p>
-                    <p>Indraprastha Engineering College (2020 - 2024)</p>
+                    {% for e in education %}
+                    <p class="font-bold">{{e.Degree}}</p>
+                    <p>{{e.College}}</p>
                     <p>CGPA: 8.85/10</p>
-                    <!-- 12th -->
-                    <p class="font-bold mt-1">Senior Secondary (XII)</p>
-                    <p>Elpis Global School (CBSE board) (2019)</p>
-                    <p>Percentage: 86%</p>
-                    <!-- 10th -->
-                    <p class="font-bold mt-1">Secondary (X)</p>
-                    <p>Elpis Global School (CBSE board) (2017)</p>
-                    <p>CGPA: 10/10</p>
+                    {% endfor %}
                 </div>
                 <!-- skills -->
                 <div class="">
                     <h1 class="text-2xl font-bold mt-4 mb-2">TECHNICAL SKILLS</h1>
-                    <p class="mb-1"><span class="font-bold">Languages:</span> C, C++, Python, Java, HTML, CSS, JavaScript, Kotlin</p>
-                    <p class="mb-1"><span class="font-bold">Frameworks/Libraries:</span> Bootstrap, React, Sass, jQuery, Tailwind CSS, Django, Selenium(Web automation), NumPy, Pandas, scikit-learn(Machine Learning), Tkinter(GUI development)</p>
-                    <p class=""><span class="font-bold">Others:</span> Microsoft Office, Microsoft PowerPoint, Git & GitHub, Azure, Adobe Photoshop, Linux</p>
+                    <span class="font-bold">Languages:</span>
+                    <div class="mb-1">{% for skill in languages %}
+                        <span>{{skill}},</span>
+                    {% endfor %}</div>
+                    <p class="mb-1"><span class="font-bold">Frameworks/Libraries:</span> 
+                        {% for lf in laf %}
+                        <span>{{lf}}</span>
+                        {% endfor %}
+                    <p class=""><span class="font-bold">Others:</span> 
+                        {% for o in others %}
+                        {{o}}
+                        {% endfor %}
+                    </p>
                 </div>
                 <!-- position of responsibility -->
                 <div>
@@ -62,7 +66,11 @@
                 <!-- Experience -->
                 <div>
                     <h1 class="text-2xl font-bold mt-4 mb-2">Work Experience</h1>
-                    <p>Web Development Internship at Lets Grow More. (from 1 September 2021 to 1 October 2021)</p>
+                    {% for ex in exp %}
+                    <p>{{ex.title}} Internship</p>
+                    <p> at {{ex.company}}.</p>
+                    <p> (from {{ex.start}} to {{ex.end}})</p>
+                    {% endfor %}
                 </div>
             </div>
             <!-- col 2 -->
@@ -70,29 +78,14 @@
                 <!-- project -->
                 <div>
                     <h1 class="text-2xl font-bold  mb-2">PROJECTS</h1>
-                    
-                    <p class="font-bold mb-1    ">Elite E-library</p>
-                    <p>It is a fully responsive, fullend website made using Django that has authentication system. Only logined user can upload books and read premium books.</p>
-                    <!-- <p>It is a fully responsive, fullend website made using Django that has authentication system. Random  users can read books from here for free and only logined user can upload books and read premium books for free.</p> -->
-                    <!-- <p class="mt-1"><span class="font-bold">Languages, Frameworks and Libraries used:</span> HTML, CSS , JavaScript, Bootstrap, Django</p> -->
-                    
-                    <p class="font-bold mb-1 mt-2    ">Elite Sudoku Solver</p>
-                    <p>It is an android application (made using Kotlin) that can solve 9*9 sudoku. It's web version is also made using JavaScript and hosted on GitHub.</p>
-                    <!-- <p class="mt-1"><span class="font-bold">Languages, Frameworks and Libraries used:</span> Kotlin</p> -->
-
-                    <p class="font-bold mb-1 mt-2    ">Elite Mass Email Sender</p>
-                    <p>It is a Python GUI that can help you to send emails in mass with and without attachment. It can also be used to spam one person for fun.</p>
-                    <!-- <p class="mt-1"><span class="font-bold">Languages, Frameworks and Libraries used:</span> Python,Tkinter,Pandas</p> -->
-
-                    <p class="font-bold mb-1 mt-2    ">Elite Youtube Downloader</p>
-                    <p>It is a Python GUI that can help you to download youtube videos and playlists in vedio or audio format.It also has background threding and queue functionality.</p>
-                    <!-- <p class="mt-1"><span class="font-bold">Languages, Frameworks and Libraries used:</span> Python,Tkinter</p> -->
-
-                    <p class="font-bold mb-1 mt-2    ">Bouncing Ball</p>
-                    <p>It is a GUI game made using C.</p>
-
-                    <p class="font-bold mb-1 mt-2   ">Insta Profile Downloader</p>
-                    <p>It is a Python GUI that can download profile photo of instagram's private and public accounts.</p>
+                    {% for p in projects %}
+                    <p class="font-bold mb-1">{{p.name}}</p>
+                    <p>This project is made using 
+                    {% for l in p.languages_used %}
+                    <span>{{l}},</span>
+                    {% endfor %}
+                </p>
+                {% endfor %} 
                 </div>
                 
                 <div>
