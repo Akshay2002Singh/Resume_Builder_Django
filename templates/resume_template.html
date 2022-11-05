@@ -17,13 +17,13 @@
         <div class="border-b-2 border-double border-black">
             <ul class="list-none text-center border-b-2 border-double border-black mb-1">
                 <li class="text-5xl font-black">
-                    {{user.f_key}}
+                    {{Name}}
                 </li>
                 <li class="text-2xl font-bold">
-                    {{intro.Summary}}
+                    {{Summary}}
                 </li>
                 <li class="text-xl mb-3">
-                    Email: 06akshay2002@gmail.com || Mobile: 9305224328
+                    Email: {{email}}
                 </li>
             </ul>
         </div>
@@ -32,71 +32,95 @@
             <!-- col 1 -->
             <div class="basis-1/2 flex flex-col mr-5">
                 <!-- education -->
+                {% if Education|length > 0 %}
                 <div>
                     <h1 class="text-2xl font-bold mb-2">EDUCATION</h1>
                     <!-- college -->
-                    {% for e in education %}
+                    {% for e in Education %}
                     <p class="font-bold">{{e.Degree}}</p>
                     <p>{{e.College}}</p>
                     <p>CGPA: 8.85/10</p>
                     {% endfor %}
                 </div>
+                {% endif %}
                 <!-- skills -->
+                {% if skills|length > 0 %}
                 <div class="">
+                    {% if skills.language|length > 0 %}
                     <h1 class="text-2xl font-bold mt-4 mb-2">TECHNICAL SKILLS</h1>
                     <span class="font-bold">Languages:</span>
-                    <div class="mb-1">{% for skill in languages %}
+                    <span class="mb-1">{% for skill in skills.language %}
                         <span>{{skill}},</span>
-                    {% endfor %}</div>
-                    <p class="mb-1"><span class="font-bold">Frameworks/Libraries:</span> 
-                        {% for lf in laf %}
+                    {% endfor %}</span>
+                    {% endif %}
+                    <p class="mb-1">
+                        {% if skills.library_and_framework|length > 0 %}
+                        <span class="font-bold">Frameworks/Libraries:</span> 
+                        {% for lf in skills.library_and_framework %}
                         <span>{{lf}}</span>
                         {% endfor %}
-                    <p class=""><span class="font-bold">Others:</span> 
-                        {% for o in others %}
+                        {% endif %}
+                    <p class="">
+                        {% if skills.other|length > 0 %}
+                        <span class="font-bold">Others:</span> 
+                        {% for o in skills.other %}
                         {{o}}
                         {% endfor %}
+                        {% endif %}
                     </p>
                 </div>
+
+                {% endif %}
                 <!-- position of responsibility -->
+                {% if position_of_responsibility|length > 0 %}
                 <div>
                     <h1 class="text-2xl font-bold mt-4 mb-2">Position of Responsibility</h1>
-                    <p>SIG Python sub-head at IPEC ACM STUDENT CHAPTER.</p>
-                </div>
-                <!-- Experience -->
-                <div>
-                    <h1 class="text-2xl font-bold mt-4 mb-2">Work Experience</h1>
-                    {% for ex in exp %}
-                    <p>{{ex.title}} Internship</p>
-                    <p> at {{ex.company}}.</p>
-                    <p> (from {{ex.start}} to {{ex.end}})</p>
+                    {% for x in position_of_responsibility %}
+                    <li>x</li>
                     {% endfor %}
                 </div>
+                {% endif %}
+                <!-- Experience -->
+                {% if Experience|length > 0 %}
+                <div>
+                    <h1 class="text-2xl font-bold mt-4 mb-2">Work Experience</h1>
+                    {% for ex in Experience %}
+                    <p><strong>{{ex.title}} Internship at {{ex.company}}.</strong></p>
+                     <p> from {{ex.start}} to {{ex.end}}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
             </div>
             <!-- col 2 -->
             <div class="basis-1/2 flex flex-col ml-5">
                 <!-- project -->
                 <div>
+                    {% if Projects|length > 0 %}
                     <h1 class="text-2xl font-bold  mb-2">PROJECTS</h1>
-                    {% for p in projects %}
+                    {% for p in Projects %}
                     <p class="font-bold mb-1">{{p.name}}</p>
                     <p>This project is made using 
                     {% for l in p.languages_used %}
-                    <span>{{l}},</span>
+                    <span>{{l}} </span>
                     {% endfor %}
                 </p>
                 {% endfor %} 
+                {% endif %}
                 </div>
                 
                 <div>
+                    {% if Acquirements|length > 0 %}
                     <h1 class="text-2xl font-bold mt-4 mb-2">Acquirements</h1>
                     <ul class="list-disc list-inside">
-                        <li>2 stars at codechef</li>
-                        <li>5 stars in Problem Solving at HackerRank</li>
+                        {% for l in Acquirements %}
+                        <li>l</li>
+                        {% endfor %} 
+                        {% comment %} <li>5 stars in Problem Solving at HackerRank</li>
                         <li>5 stars in C, C++, Python at HackerRank</li>
                         <li>3 stars in JavaScript at HackerRank</li>
-                        <li>139 rank in Institute at GFG</li>
+                        <li>70 rank in Institute at GFG</li> {% endcomment %}
                     </ul>
+                    {% endif %}
                 </div>
 
             </div>

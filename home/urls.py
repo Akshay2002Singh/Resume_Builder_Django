@@ -14,4 +14,5 @@ path("submit_contact_form",views.submit_contact_form,name="submit_contact_form")
 path("generate_data",views.generate_data,name="generate_data"),
 path("generate_data_form",views.generate_data_form,name="generate_data_form"),
 path("show_resume",views.show_resume),
+path("edit_resume",views.edit_resume),
 ]

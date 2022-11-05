@@ -1,5 +1,6 @@
 import json
 import requests
+# import os
 from home.models import users_data
 
 def api_call(git,linked,request):
@@ -120,9 +121,15 @@ def api_call(git,linked,request):
     print
     # fetch github data 
     # username="Akshay2002Singh"
+    git_key = ""
+    with open("gat_key.txt","r") as f:
+        git_key = f.read()
+        git_key = git_key.strip()
+        print(git_key)
+
     username = git
     apistring=f"https://api.github.com/users/{username}/repos"
-    headers={"Authorization":"Bearer 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"}
+    headers={"Authorization":f"Bearer {git_key}"}
     try:
         jsonresponse=requests.get(apistring,headers=headers).json()
         print()
@@ -177,4 +184,4 @@ def api_call(git,linked,request):
     temp.data = json.dumps(data_dic) 
     temp.fetch_done = 1
     temp.save()
-# api_call("Akshay2002Singh","akshay-singh-elite")
+# api_call("Akshay2002Singh","akshay-singh-elite","asdfads")

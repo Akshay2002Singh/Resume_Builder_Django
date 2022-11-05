@@ -2,7 +2,8 @@ import requests
 import json
 username="Akshay2002Singh"
 apistring=f"https://api.github.com/users/{username}/repos"
-headers={"Authorization":"Bearer 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"}
+key = "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"
+headers={"Authorization":f"Bearer {key}"}
 jsonresponse=requests.get(apistring,headers=headers).json()
 print(jsonresponse)
 best_repos=dict()
@@ -27,7 +28,7 @@ if len(best_repos)<6:
     for i in range(0,len(all_repos)):
         repo_dict=all_repos[i]
         repo_name=repo_dict["name"]
-        repo_url=f"https://api.github.com/repos/akshay2002singh/{repo_name}/contributors"
+        repo_url=f"https://api.github.com/repos/{username}/{repo_name}/contributors"
         repojson=requests.get(repo_url).json()
         all_repos[i].update({
             "commits":repojson[0]["contributions"]

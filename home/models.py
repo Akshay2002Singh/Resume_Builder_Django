@@ -17,3 +17,7 @@ class users_data(models.Model):
     f_key = models.ForeignKey(User,on_delete=models.CASCADE)
     data = models.TextField()
     fetch_done = models.BooleanField()
+
+    def __str__(self):
+        temp = str(self.f_key)
+        return temp

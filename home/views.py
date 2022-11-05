@@ -9,15 +9,20 @@ import threading
 def show_resume(request):
     user=users_data.objects.get(f_key=request.user)
     user_details=json.loads(user.data)
-    print(user_details["skills"]["library_and_framework"])
-    return render(request,'resume_template.html',{"user":user,"intro":user_details["Summary"],
-    "languages":user_details["skills"]["language"],
-    "education":user_details["Education"],
-    "laf":user_details["skills"]["library_and_framework"],
-    "others":user_details["skills"]["other"],
-    "exp":user_details["Experience"],
-    "projects":user_details["Projects"],
-    })
+    user_details["email"] = request.user.email
+
+    # return render(request,'resume_template.html',{"user":user,"intro":user_details["Summary"],
+    # "languages":user_details["skills"]["language"],
+    # "education":user_details["Education"],
+    # "laf":user_details["skills"]["library_and_framework"],
+    # "others":user_details["skills"]["other"],
+    # "exp":user_details["Experience"],
+    # "projects":user_details["Projects"],
+    # })
+
+    return render(request,'resume_template.html',context = user_details)
+
+
 def index(request):
     context = {
         "login" : 0
@@ -93,11 +98,28 @@ def generate_data_form(request):
     if request.method == 'POST':
         git = request.POST.get('Github')
         linked = request.POST.get('LinkedIn')
-        data_entry = users_data(f_key=request.user,fetch_done = 0)
-        data_entry.save()
+        try:
+            temp = users_data.objects.get(f_key=request.user)
+        except:
+            temp = None
+        if temp != None:
+            temp.data = ""
+            temp.fetch_done = 0
+            temp.save()
+        else:
+            data_entry = users_data(f_key=request.user,fetch_done = 0)
+            data_entry.save()
         # print(git)
         # print(linked)
         thread = threading.Thread(target=api_call,args=(git,linked,request))
         thread.start()
         # api_call(git,linked,request)
         return render(request,"generate.html")
+
+
+
+def edit_resume(request):
+    user=users_data.objects.get(f_key=request.user)
+    user_details=json.loads(user.data)
+
+    return render(request,'edit_resume.html',context= {"Data" : user_details})
