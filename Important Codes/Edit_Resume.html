@@ -11,11 +11,228 @@
 </head>
 
 <body>
+    <div id="name">
+        <div class="form-group">
+            <label for="Name" class="form-label">Name</label>
+            <input type="text" class="form-control mb-3" id="Name">
+        </div>
+        <div class="form-group">
+            <label for="Summary" class="form-label">Description</label>
+            <input type="text" class="form-control mb-3" id="Summary">
+        </div>
+    </div>
+    <div id="Skills">
+        <h2>Skills</h2>
+
+    </div>
+    <div id="Education">
+        <h2>Education</h2>
+
+    </div>
+
+    <div id="projects">
+        <h2>
+            Projects
+        </h2>
+    </div>
+    <div id="experience"><h2>
+        Experience
+    </h2>
+</div>
     <script>
-        
+        var st = `{
+    "success": 1,
+    "Name": "Akshay Singh",
+    "Summary": "Computer Science enthusiast with some Web and Android Development background, and I \ud83d\udc9e\ufe0f to code.",
+    "skills": {
+        "language": [
+            "C (Programming Language)",
+            "C++",
+            "Cascading Style Sheets (CSS)",
+            "HTML",
+            "HTML5",
+            "Java",
+            "JavaScript",
+            "Kotlin"
+        ],
+        "library_and_framework": [
+            "Django",
+            "React.js"
+        ],
+        "other": [
+            "Adobe Photoshop",
+            "Microsoft Office"
+        ]
+    },
+    "Education": [
+        {
+            "Degree": "Bachelor of Technology - BTech(2nd year) , Computer Science",
+            "College": "Dr. A.P.J. Abdul Kalam Technical University (2020 - 2024)"
+        },
+        {
+            "Degree": "Senior Secondary (XII), Mathematics",
+            "College": "Elpis Global School (2018 - 2019)"
+        },
+        {
+            "Degree": "Secondary (X)",
+            "College": "Elpis Global School (2016 - 2017)"
+        }
+    ],
+    "Experience": [
+        {
+            "title": "Software Developer",
+            "company": "REACH Technologies",
+            "start": "8/2022",
+            "end": "Present"
+        },
+        {
+            "title": "Intern",
+            "company": "LetsGrowMore",
+            "start": "9/2021",
+            "end": "9/2021"
+        }
+    ],
+    "Projects": [
+        {
+            "name": "AKTU_E-library",
+            "commits": 50,
+            "languages_used": [
+                "HTML"
+            ]
+        },
+        {
+            "name": "E_library_using_django",
+            "commits": 21,
+            "languages_used": [
+                "HTML",
+                "Python"
+            ]
+        },
+        {
+            "name": "Hosting_E_library_Django_Bootstrap",
+            "commits": 17,
+            "languages_used": [
+                "HTML",
+                "Python"
+            ]
+        },
+        {
+            "name": "Notepad_Python_GUI",
+            "commits": 12,
+            "languages_used": [
+                "Python"
+            ]
+        },
+        {
+            "name": "Bouncing_Ball_GUI_Using_C",
+            "commits": 11,
+            "languages_used": [
+                "C"
+            ]
+        },
+        {
+            "name": "Insta_Profile_Downloader_Python_GUI",
+            "commits": 11,
+            "languages_used": [
+                "Python"
+            ]
+        }
+    ]
+}`
+        obj = JSON.parse(st)
+
+        window.onload = function () {
+            // name and Summary
+            $("#Name").val(obj["Name"]);
+            $("#Summary").val(obj["Summary"]);
+            // skills
+            for (let i in obj["skills"]) {
+                let div_ele = `<div id="${i}"></div>`
+                document.getElementById("Skills").innerHTML += div_ele;
+                // console.log(i)
+                let label_ele = `<label class="form-label">${i}</label>`
+                document.getElementById(i).innerHTML += label_ele;
+                for (let x in obj["skills"][i]) {
+                    let element = `<input type="text" class="form-control mb-3" value=${obj["skills"][i][x]}>`
+                    document.getElementById(i).innerHTML += element;
+                    // console.log(element)
+                }
+            }
+            // Education
+            for (let i in obj["Education"]) {
+                let div_ele = `<div id="${i}"></div>`
+                document.getElementById("Education").innerHTML += div_ele;
+                // console.log(i)
+                let label_ele = `<div><label class="form-label">${i}</label></div>`
+                document.getElementById(i).innerHTML += label_ele;
+                // console.log(obj["Education"][i])
+                for (let x in obj["Education"][i]) {
+                    let label_ele = `<label class="form-label">${x}</label>`
+                    document.getElementById(i).innerHTML += label_ele;
+                    let t_var = obj["Education"][i][x]
+                    let element = `<input type="text" class="form-control mb-3" value="${t_var}">`
+                    document.getElementById(i).innerHTML += element;
+                    console.log(element)
+                }
+            }
+
+        // let obj=JSON.parse(obj)
+        projects=obj["Projects"]
+        for(var i=0;i<projects.length;i++)
+        {
+        let div_tag=document.createElement("div")
+        div_tag.id=i+1
+        document.getElementById("projects").appendChild(div_tag)
+        let label_1=document.createElement("label")
+        label_1.for=`name-${i+1}`
+        label_1.innerText="Name"
+        let input_1=document.createElement("input");
+        input_1.id=`name-${i+1}`
+        input_1.value=`${projects[i]["name"]}`
+        input_1.classList.add('form-control')
+        let label_2=document.createElement("label")
+        label_2.for=`desc-${i+1}`
+        label_2.innerText="Description"
+        let input_2=document.createElement("input")
+        input_2.value="This project is made using"
+        input_2.id=`desc-${i+1}`
+        input_2.classList.add('form-control')
+        for(let j=0;j<projects[i]["languages_used"].length;j++)
+        input_2.value+=` ${projects[i]["languages_used"][j]}`
+        document.getElementById(`${i+1}`).appendChild(label_1)
+        document.getElementById(`${i+1}`).appendChild(input_1)
+        document.getElementById(`${i+1}`).appendChild(label_2)
+        document.getElementById(`${i+1}`).appendChild(input_2)
+    }
+        let experience=obj["Experience"]
+        console.log(experience.length)
+       for(let i=0;i<experience.length;i++)
+       {
+        div_tag=document.createElement("div")
+        estring=`<label for="title-${i+1}">Title</label><input class="form-control" id="title-${i+1}">`
+       estring+=`<label for="company-${i+1}">Company</label><input class="form-control" id="company-${i+1}">`
+       estring+=`<label for="start-${i+1}">Start</label><input class="form-control" id="start-${i+1}">`
+       estring+=`<label for="end-${i+1}">End</label><input class="form-control" id="end-${i+1}">`
+       div_tag.innerHTML=estring
+       document.getElementById("experience").appendChild(div_tag)
+       document.getElementById(`title-${i+1}`).value=experience[i]["title"]
+       document.getElementById(`company-${i+1}`).value=experience[i]["company"]
+       document.getElementById(`start-${i+1}`).value=experience[i]["start"]
+       document.getElementById(`end-${i+1}`).value=experience[i]["end"]
+    }
+
+
+
+
+
+        }
+
+
+
     </script>
 
-
+    <script src="https://code.jquery.com/jquery-3.6.1.slim.js"
+        integrity="sha256-tXm+sa1uzsbFnbXt8GJqsgi2Tw+m4BLGDof6eUPjbtk=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
         crossorigin="anonymous"></script>
