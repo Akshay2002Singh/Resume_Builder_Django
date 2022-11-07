@@ -32,7 +32,7 @@
         <div id="Education">
 
         </div>
-        <button>Add Education</button>
+        <button onclick="add_Education_input()">Add Education</button>
     </div>
 
     <div id="projects_main_box">
@@ -155,21 +155,25 @@
                 document.getElementById("Skills").innerHTML += `<button onclick="add_skills_input('${i}')">Add ${i}</button>`;
             }
             // Education
+            // console.log(obj["Education"])
+            count = 0
             for (let i in obj["Education"]) {
-                let div_ele = `<div id="${i}"></div>`
-                document.getElementById("Education").innerHTML += div_ele;
+                // let div_ele = `<div id="${i}"></div>`
+                // document.getElementById("Education").innerHTML += div_ele;
                 // console.log(i)
-                let label_ele = `<div><label class="form-label">${i}</label></div>`
-                document.getElementById(i).innerHTML += label_ele;
+                // let label_ele = `<div><label class="form-label">${i}</label></div>`
+                // document.getElementById(i).innerHTML += label_ele;
                 // console.log(obj["Education"][i])
                 for (let x in obj["Education"][i]) {
-                    let label_ele = `<label class="form-label">${x}</label>`
-                    document.getElementById(i).innerHTML += label_ele;
+                    let label_ele = `<p class="form-label ${x}_label">${x}</p>`
+                    document.getElementById("Education").innerHTML += label_ele;
                     let t_var = obj["Education"][i][x]
-                    let element = `<input type="text" class="form-control mb-3" value="${t_var}" class=${x}>`
-                    document.getElementById(i).innerHTML += element;
-                    // console.log(element)
+                    let element = `<input type="text" class="form-control mb-3 ${x}_input" value="${t_var}">`
+                    document.getElementById("Education").innerHTML += element;
+                    // console.log(element)  
                 }
+                document.getElementById("Education").innerHTML += `<button onclick="delete_Education_input(${count})">Delete Above Education</button>`;
+                ++count;
             }
 
             // let obj=JSON.parse(obj)
@@ -222,6 +226,36 @@
                 ++count
             }
             document.getElementById(temp).innerHTML = t_str;
+        }
+        // to add_Education_input
+        function add_Education_input(){
+            count = document.getElementsByClassName("College_input").length;
+            // confirm(count)
+            let temp = `<p class="form-label Degree_label">Degree</p> 
+            <input type="text" class="form-control mb-3 Degree_input">
+            <label class="form-label College_label">College</label> 
+            <input type="text" class="form-control mb-3 College_input">
+            `
+            document.getElementById("Education").innerHTML += temp;
+            document.getElementById("Education").innerHTML += `<button onclick="delete_Education_input(${count})">Delete Above Education</button>`;
+        }
+        // to delete_Education_input
+        function delete_Education_input(index){
+            let deg_input = document.getElementsByClassName(`Degree_input`);
+            let col_input = document.getElementsByClassName(`College_input`);
+            let t_str = ""
+            for(let i=0,count=0;i<deg_input.length;++i){
+                if(i==index){
+                    continue;
+                }
+                t_str += `<p class="form-label Degree_label">Degree</p> 
+            <input type="text" class="form-control mb-3 Degree_input" value="${deg_input[i].value}">
+            <label class="form-label College_label">College</label> 
+            <input type="text" class="form-control mb-3 College_input" value="${col_input[i].value}">`;
+                t_str += `<button onclick="delete_Education_input(${count})">Delete Above Education</button>`;
+                ++count;
+            }
+            document.getElementById("Education").innerHTML = t_str;
         }
 
     </script>
