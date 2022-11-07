@@ -5,24 +5,8 @@ from home.models import contact,users_data
 from .fetchdata import api_call
 import json
 import threading
+
 # Create your views here.
-def show_resume(request):
-    user=users_data.objects.get(f_key=request.user)
-    user_details=json.loads(user.data)
-    user_details["email"] = request.user.email
-
-    # return render(request,'resume_template.html',{"user":user,"intro":user_details["Summary"],
-    # "languages":user_details["skills"]["language"],
-    # "education":user_details["Education"],
-    # "laf":user_details["skills"]["library_and_framework"],
-    # "others":user_details["skills"]["other"],
-    # "exp":user_details["Experience"],
-    # "projects":user_details["Projects"],
-    # })
-
-    return render(request,'resume_template.html',context = user_details)
-
-
 def index(request):
     context = {
         "login" : 0
@@ -116,7 +100,11 @@ def generate_data_form(request):
         # api_call(git,linked,request)
         return render(request,"generate.html")
 
-
+def show_resume(request):
+    user=users_data.objects.get(f_key=request.user)
+    user_details=json.loads(user.data)
+    user_details["email"] = request.user.email
+    return render(request,'resume_template.html',context = user_details)
 
 def edit_resume(request):
     user=users_data.objects.get(f_key=request.user)

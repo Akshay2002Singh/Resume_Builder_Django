@@ -21,24 +21,34 @@
             <input type="text" class="form-control mb-3" id="Summary">
         </div>
     </div>
-    <div id="Skills">
+    <div id="Skills_main_box">
         <h2>Skills</h2>
+        <div id="Skills">
 
+        </div>
     </div>
-    <div id="Education">
+    <div id="Education_main_box">
         <h2>Education</h2>
+        <div id="Education">
 
+        </div>
+        <button>Add Education</button>
     </div>
 
-    <div id="projects">
-        <h2>
-            Projects
-        </h2>
+    <div id="projects_main_box">
+        <h2>Projects</h2>
+        <div id="projects">
+
+        </div>
+        <button>Add Project</button>
     </div>
-    <div id="experience"><h2>
-        Experience
-    </h2>
-</div>
+    <div id="experience_main_box">
+        <h2>Experience</h2>
+        <div id="experience">
+
+        </div>
+        <button>Add Experience</button>
+    </div>
     <script>
         var st = `{
     "success": 1,
@@ -94,57 +104,39 @@
     ],
     "Projects": [
         {
-            "name": "AKTU_E-library",
-            "commits": 50,
-            "languages_used": [
-                "HTML"
-            ]
-        },
-        {
             "name": "E_library_using_django",
-            "commits": 21,
-            "languages_used": [
-                "HTML",
-                "Python"
-            ]
+            "description": "It is a fully responsive, fullend website made using Django that has authentication system. Only logined user can upload books and read premium books."
         },
         {
             "name": "Hosting_E_library_Django_Bootstrap",
-            "commits": 17,
-            "languages_used": [
-                "HTML",
-                "Python"
-            ]
+            "description": "This project is made using HTML, Python."
         },
         {
             "name": "Notepad_Python_GUI",
-            "commits": 12,
-            "languages_used": [
-                "Python"
-            ]
+            "description": "This project is made using Python."
         },
         {
             "name": "Bouncing_Ball_GUI_Using_C",
-            "commits": 11,
-            "languages_used": [
-                "C"
-            ]
+            "description": "This project is made using C."
         },
         {
             "name": "Insta_Profile_Downloader_Python_GUI",
-            "commits": 11,
-            "languages_used": [
-                "Python"
-            ]
+            "description": "This project is made using Python."
+        },
+        {
+            "name": "Invoice_system",
+            "description": "This project is made using HTML, Python."
         }
     ]
 }`
         obj = JSON.parse(st)
 
+        // render form from JSON obj 
         window.onload = function () {
             // name and Summary
             $("#Name").val(obj["Name"]);
             $("#Summary").val(obj["Summary"]);
+
             // skills
             for (let i in obj["skills"]) {
                 let div_ele = `<div id="${i}"></div>`
@@ -152,11 +144,15 @@
                 // console.log(i)
                 let label_ele = `<label class="form-label">${i}</label>`
                 document.getElementById(i).innerHTML += label_ele;
+                let count = 0;
                 for (let x in obj["skills"][i]) {
-                    let element = `<input type="text" class="form-control mb-3" value=${obj["skills"][i][x]}>`
+                    let element = `<input type="text" class="form-control mb-3 ${i}_input" value=${obj["skills"][i][x]}>`
                     document.getElementById(i).innerHTML += element;
+                    document.getElementById(i).innerHTML += `<button onclick="delete_skills_input('${i}',${count})">Delete ${i}</button>`
+                    ++count;
                     // console.log(element)
                 }
+                document.getElementById("Skills").innerHTML += `<button onclick="add_skills_input('${i}')">Add ${i}</button>`;
             }
             // Education
             for (let i in obj["Education"]) {
@@ -170,64 +166,63 @@
                     let label_ele = `<label class="form-label">${x}</label>`
                     document.getElementById(i).innerHTML += label_ele;
                     let t_var = obj["Education"][i][x]
-                    let element = `<input type="text" class="form-control mb-3" value="${t_var}">`
+                    let element = `<input type="text" class="form-control mb-3" value="${t_var}" class=${x}>`
                     document.getElementById(i).innerHTML += element;
-                    console.log(element)
+                    // console.log(element)
                 }
             }
 
-        // let obj=JSON.parse(obj)
-        projects=obj["Projects"]
-        for(var i=0;i<projects.length;i++)
-        {
-        let div_tag=document.createElement("div")
-        div_tag.id=i+1
-        document.getElementById("projects").appendChild(div_tag)
-        let label_1=document.createElement("label")
-        label_1.for=`name-${i+1}`
-        label_1.innerText="Name"
-        let input_1=document.createElement("input");
-        input_1.id=`name-${i+1}`
-        input_1.value=`${projects[i]["name"]}`
-        input_1.classList.add('form-control')
-        let label_2=document.createElement("label")
-        label_2.for=`desc-${i+1}`
-        label_2.innerText="Description"
-        let input_2=document.createElement("input")
-        input_2.value="This project is made using"
-        input_2.id=`desc-${i+1}`
-        input_2.classList.add('form-control')
-        for(let j=0;j<projects[i]["languages_used"].length;j++)
-        input_2.value+=` ${projects[i]["languages_used"][j]}`
-        document.getElementById(`${i+1}`).appendChild(label_1)
-        document.getElementById(`${i+1}`).appendChild(input_1)
-        document.getElementById(`${i+1}`).appendChild(label_2)
-        document.getElementById(`${i+1}`).appendChild(input_2)
-    }
-        let experience=obj["Experience"]
-        console.log(experience.length)
-       for(let i=0;i<experience.length;i++)
-       {
-        div_tag=document.createElement("div")
-        estring=`<label for="title-${i+1}">Title</label><input class="form-control" id="title-${i+1}">`
-       estring+=`<label for="company-${i+1}">Company</label><input class="form-control" id="company-${i+1}">`
-       estring+=`<label for="start-${i+1}">Start</label><input class="form-control" id="start-${i+1}">`
-       estring+=`<label for="end-${i+1}">End</label><input class="form-control" id="end-${i+1}">`
-       div_tag.innerHTML=estring
-       document.getElementById("experience").appendChild(div_tag)
-       document.getElementById(`title-${i+1}`).value=experience[i]["title"]
-       document.getElementById(`company-${i+1}`).value=experience[i]["company"]
-       document.getElementById(`start-${i+1}`).value=experience[i]["start"]
-       document.getElementById(`end-${i+1}`).value=experience[i]["end"]
-    }
+            // let obj=JSON.parse(obj)
+            projects = obj["Projects"]
+            for (var i = 0; i < projects.length; i++) {
+                // console.log(projects[i]["description"])
+                let project_ele = `<div>
+            <input type="text" class="form-control mb-3 project_name" value="${projects[i].name}">
+            <input type="text" class="form-control mb-3 project_desc" value="${projects[i].description}">
+        </div>`
+                document.getElementById("projects").innerHTML += project_ele
+            }
 
-
-
-
-
+            let experience = obj["Experience"]
+            // console.log(experience.length)
+            for (let i = 0; i < experience.length; i++) {
+                div_tag = document.createElement("div")
+                estring = `<label for="title-${i + 1}">Title</label><input class="form-control" id="title-${i + 1}">`
+                estring += `<label for="company-${i + 1}">Company</label><input class="form-control" id="company-${i + 1}">`
+                estring += `<label for="start-${i + 1}">Start</label><input class="form-control" id="start-${i + 1}">`
+                estring += `<label for="end-${i + 1}">End</label><input class="form-control" id="end-${i + 1}">`
+                div_tag.innerHTML = estring
+                document.getElementById("experience").appendChild(div_tag)
+                document.getElementById(`title-${i + 1}`).value = experience[i]["title"]
+                document.getElementById(`company-${i + 1}`).value = experience[i]["company"]
+                document.getElementById(`start-${i + 1}`).value = experience[i]["start"]
+                document.getElementById(`end-${i + 1}`).value = experience[i]["end"]
+            }
+   
         }
 
-
+        // add skills input box
+        function add_skills_input(temp) {    
+            let count = document.getElementsByClassName(`${temp}_input`).length;
+            // console.log(count)
+            document.getElementById(temp).innerHTML += `<input type="text" class="form-control mb-3 ${temp}_input"}>`;
+            document.getElementById(temp).innerHTML += `<button onclick="delete_skills_input('${temp}',${count})">Delete ${temp}</button>`
+        }
+        // to delete skills input box 
+        function delete_skills_input(temp, index) {       
+            // confirm(temp + String(index));
+            let elements = document.getElementsByClassName(`${temp}_input`);
+            let t_str = "";
+            for(let i=0,count=0;i<elements.length;++i){
+                if(i==index){
+                    continue;
+                }
+                t_str += `<input type="text" class="form-control mb-3 ${temp}_input" value=${elements[i].value}>`;
+                t_str += `<button onclick="delete_skills_input('${temp}',${count})">Delete ${temp}</button>`
+                ++count
+            }
+            document.getElementById(temp).innerHTML = t_str;
+        }
 
     </script>
 

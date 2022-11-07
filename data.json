@@ -52,48 +52,28 @@
     ],
     "Projects": [
         {
-            "name": "AKTU_E-library",
-            "commits": 50,
-            "languages_used": [
-                "HTML"
-            ]
-        },
-        {
             "name": "E_library_using_django",
-            "commits": 21,
-            "languages_used": [
-                "HTML",
-                "Python"
-            ]
+            "description": "It is a fully responsive, fullend website made using Django that has authentication system. Only logined user can upload books and read premium books."
         },
         {
             "name": "Hosting_E_library_Django_Bootstrap",
-            "commits": 17,
-            "languages_used": [
-                "HTML",
-                "Python"
-            ]
+            "description": "This project is made using HTML, Python."
         },
         {
             "name": "Notepad_Python_GUI",
-            "commits": 12,
-            "languages_used": [
-                "Python"
-            ]
+            "description": "This project is made using Python."
         },
         {
             "name": "Bouncing_Ball_GUI_Using_C",
-            "commits": 11,
-            "languages_used": [
-                "C"
-            ]
+            "description": "This project is made using C."
         },
         {
             "name": "Insta_Profile_Downloader_Python_GUI",
-            "commits": 11,
-            "languages_used": [
-                "Python"
-            ]
+            "description": "This project is made using Python."
+        },
+        {
+            "name": "Invoice_system",
+            "description": "This project is made using HTML, Python."
         }
     ]
 }
