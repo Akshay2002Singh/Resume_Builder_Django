@@ -40,7 +40,7 @@
         <div id="projects">
 
         </div>
-        <button>Add Project</button>
+        <button onclick="add_Project_input()">Add Project</button>
     </div>
     <div id="experience_main_box">
         <h2>Experience</h2>
@@ -156,7 +156,7 @@
             }
             // Education
             // console.log(obj["Education"])
-            count = 0
+            count = 0;
             for (let i in obj["Education"]) {
                 // let div_ele = `<div id="${i}"></div>`
                 // document.getElementById("Education").innerHTML += div_ele;
@@ -177,14 +177,19 @@
             }
 
             // let obj=JSON.parse(obj)
+            count = 0;
             projects = obj["Projects"]
             for (var i = 0; i < projects.length; i++) {
                 // console.log(projects[i]["description"])
-                let project_ele = `<div>
+                let project_ele = `
+            <p class="form-label name_label">Project Name</p>
             <input type="text" class="form-control mb-3 project_name" value="${projects[i].name}">
+            <p class="form-label description_label">Project Description</p>
             <input type="text" class="form-control mb-3 project_desc" value="${projects[i].description}">
-        </div>`
+            <button onclick="delete_Project_input(${count})">Delete Above Project</button>
+        `
                 document.getElementById("projects").innerHTML += project_ele
+                ++count;
             }
 
             let experience = obj["Experience"]
@@ -202,23 +207,23 @@
                 document.getElementById(`start-${i + 1}`).value = experience[i]["start"]
                 document.getElementById(`end-${i + 1}`).value = experience[i]["end"]
             }
-   
+
         }
 
         // add skills input box
-        function add_skills_input(temp) {    
+        function add_skills_input(temp) {
             let count = document.getElementsByClassName(`${temp}_input`).length;
             // console.log(count)
             document.getElementById(temp).innerHTML += `<input type="text" class="form-control mb-3 ${temp}_input"}>`;
             document.getElementById(temp).innerHTML += `<button onclick="delete_skills_input('${temp}',${count})">Delete ${temp}</button>`
         }
         // to delete skills input box 
-        function delete_skills_input(temp, index) {       
+        function delete_skills_input(temp, index) {
             // confirm(temp + String(index));
             let elements = document.getElementsByClassName(`${temp}_input`);
             let t_str = "";
-            for(let i=0,count=0;i<elements.length;++i){
-                if(i==index){
+            for (let i = 0, count = 0; i < elements.length; ++i) {
+                if (i == index) {
                     continue;
                 }
                 t_str += `<input type="text" class="form-control mb-3 ${temp}_input" value=${elements[i].value}>`;
@@ -228,7 +233,7 @@
             document.getElementById(temp).innerHTML = t_str;
         }
         // to add_Education_input
-        function add_Education_input(){
+        function add_Education_input() {
             count = document.getElementsByClassName("College_input").length;
             // confirm(count)
             let temp = `<p class="form-label Degree_label">Degree</p> 
@@ -240,12 +245,12 @@
             document.getElementById("Education").innerHTML += `<button onclick="delete_Education_input(${count})">Delete Above Education</button>`;
         }
         // to delete_Education_input
-        function delete_Education_input(index){
+        function delete_Education_input(index) {
             let deg_input = document.getElementsByClassName(`Degree_input`);
             let col_input = document.getElementsByClassName(`College_input`);
             let t_str = ""
-            for(let i=0,count=0;i<deg_input.length;++i){
-                if(i==index){
+            for (let i = 0, count = 0; i < deg_input.length; ++i) {
+                if (i == index) {
                     continue;
                 }
                 t_str += `<p class="form-label Degree_label">Degree</p> 
@@ -257,6 +262,39 @@
             }
             document.getElementById("Education").innerHTML = t_str;
         }
+
+        // to add_Project_input
+        function add_Project_input() {
+            let count = document.getElementsByClassName("project_name").length;
+            document.getElementById("projects").innerHTML += `
+            <p class="form-label name_label">Project Name</p>
+            <input type="text" class="form-control mb-3 project_name">
+            <p class="form-label description_label">Project Description</p>
+            <input type="text" class="form-control mb-3 project_desc">
+            <button onclick="delete_Project_input(${count})">Delete Above Project</button>
+        `;
+        }
+        // to delete_Project_input
+        function delete_Project_input(index) {
+            let project_name = document.getElementsByClassName(`project_name`);
+            let project_desc = document.getElementsByClassName(`project_desc`);
+            let t_str = ""
+            for (let i = 0, count = 0; i < project_name.length; ++i) {
+                if (i == index) {
+                    continue;
+                }
+                t_str += `
+            <p class="form-label name_label">Project Name</p>
+            <input type="text" class="form-control mb-3 project_name" value="${project_name[i].value}">
+            <p class="form-label description_label">Project Description</p>
+            <input type="text" class="form-control mb-3 project_desc" value="${project_desc[i].value}">
+            <button onclick="delete_Project_input(${count})">Delete Above Project</button>
+        `;
+                ++count;
+            }
+            document.getElementById("projects").innerHTML = t_str;
+        }
+
 
     </script>
 
