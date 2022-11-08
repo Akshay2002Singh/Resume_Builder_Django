@@ -11,53 +11,61 @@
 </head>
 
 <body>
+    <div class="container">
     <div id="name">
         <div class="form-group">
-            <label for="Name" class="form-label">Name</label>
+            <label for="Name" class="form-label h5">Name</label>
             <input type="text" class="form-control mb-3" id="Name">
         </div>
         <div class="form-group">
-            <label for="Summary" class="form-label">Description</label>
+            <label for="Summary" class="form-label h5">Description</label>
             <input type="text" class="form-control mb-3" id="Summary">
         </div>
     </div>
     <div id="Skills_main_box">
-        <h2>Skills</h2>
+        <h2  class="alert alert-danger d-flex justify-content-center fw-bold" role="alert">Skills</h2>
         <div id="Skills">
 
         </div>
     </div>
     <div id="Education_main_box">
-        <h2>Education</h2>
+        <h2 class="alert alert-danger  d-flex justify-content-center fw-bold" role="alert">Education</h2>
         <div id="Education">
 
         </div>
-        <button onclick="add_Education_input()">Add Education</button>
+        <div class="d-grid">
+            <button type="button" type="button" class="btn btn-secondary mb-3 " onclick="add_Education_input()" style="background-color: #cff4fc; color: black; border: none; font-weight: 600;">Add Education</button>
+        </div>
     </div>
 
     <div id="projects_main_box">
-        <h2>Projects</h2>
+        <h2 class="alert alert-danger  d-flex justify-content-center fw-bold" role="alert">Projects</h2>
         <div id="projects">
 
+        </div><div class="d-grid">
+            <button type="button" class="btn btn-secondary mb-3" onclick="add_Project_input()" style="background-color: #cff4fc; color: black; border: none; font-weight: 600;">Add Project</button>
         </div>
-        <button onclick="add_Project_input()">Add Project</button>
     </div>
     <div id="experience_main_box">
-        <h2>Experience</h2>
+        <h2 class="alert alert-danger  d-flex justify-content-center fw-bold" role="alert">Experience</h2>
         <div id="experience">
 
         </div>
-        <button onclick="add_experience_input()">Add Experience</button>
+        <div class="d-grid mb-3">
+            <button type="button" class="btn btn-secondary" onclick="add_experience_input()" style="background-color: #cff4fc; color: black; border: none; font-weight: 600;">Add Experience</button>
+        </div>
     </div>
-
-    <button onclick="submit_form()" class="mt-5">Submit</button>
+    <div class="d-grid">
+        <button type="button" class="btn btn-danger" onclick="submit_form()" class="mt-3">Submit</button>
+    </div>
+</div> 
     <script>
         var st = `{
     "success": 1,
     "Name": "Akshay Singh",
     "Summary": "Computer Science enthusiast with some Web and Android Development background, and I \ud83d\udc9e\ufe0f to code.",
     "skills": {
-        "language": [
+        "Languages": [
             "C (Programming Language)",
             "C++",
             "Cascading Style Sheets (CSS)",
@@ -67,11 +75,11 @@
             "JavaScript",
             "Kotlin"
         ],
-        "library_and_framework": [
+        "Library And Frameworks": [
             "Django",
             "React.js"
         ],
-        "other": [
+        "Others": [
             "Adobe Photoshop",
             "Microsoft Office"
         ]
@@ -141,20 +149,20 @@
 
             // skills
             for (let i in obj["skills"]) {
-                let div_ele = `<div id="${i}"></div>`
+                let div_ele = `<div  id="${i}"></div>`
                 document.getElementById("Skills").innerHTML += div_ele;
                 // console.log(i)
-                let label_ele = `<label class="form-label">${i}</label>`
+                let label_ele=`<label class="alert alert-danger fs-4 py-1 d-flex justify-content-center fw-bold">${i}</label>`
                 document.getElementById(i).innerHTML += label_ele;
                 let count = 0;
                 for (let x in obj["skills"][i]) {
-                    let element = `<input type="text" class="form-control mb-3 ${i}_input" value=${obj["skills"][i][x]}>`
+                    let element = `<input type="text" class="form-control mb-3 mt-3 ${i}_input" value=${obj["skills"][i][x]}>`
                     document.getElementById(i).innerHTML += element;
-                    document.getElementById(i).innerHTML += `<button onclick="delete_skills_input('${i}',${count})">Delete ${i}</button>`
+                    document.getElementById(i).innerHTML += `<button type="button" class="btn btn-primary mb-2" onclick="delete_skills_input('${i}',${count})">Delete Above</button>`
                     ++count;
                     // console.log(element)
                 }
-                document.getElementById("Skills").innerHTML += `<button onclick="add_skills_input('${i}')">Add ${i}</button>`;
+                document.getElementById("Skills").innerHTML += `<div class="d-grid mb-3"><button class="btn btn-secondary" onclick="add_skills_input('${i}')" style="background-color: #cff4fc; color: black; border: none; font-weight: 600;">Add ${i}</button></div>`;
             }
             // Education
             // console.log(obj["Education"])
@@ -167,14 +175,14 @@
                 // document.getElementById(i).innerHTML += label_ele;
                 // console.log(obj["Education"][i])
                 for (let x in obj["Education"][i]) {
-                    let label_ele = `<p class="form-label ${x}_label">${x}</p>`
+                    let label_ele = `<p class="form-label ${x}_label h5">${x}</p>`
                     document.getElementById("Education").innerHTML += label_ele;
                     let t_var = obj["Education"][i][x]
                     let element = `<input type="text" class="form-control mb-3 ${x}_input" value="${t_var}">`
                     document.getElementById("Education").innerHTML += element;
                     // console.log(element)  
                 }
-                document.getElementById("Education").innerHTML += `<button onclick="delete_Education_input(${count})">Delete Above Education</button>`;
+                document.getElementById("Education").innerHTML += `<button type="button" class="btn btn-primary mb-2" onclick="delete_Education_input(${count})">Delete Above Education</button>`;
                 ++count;
             }
 
@@ -184,11 +192,11 @@
             for (var i = 0; i < projects.length; i++) {
                 // console.log(projects[i]["description"])
                 let project_ele = `
-            <p class="form-label name_label">Project Name</p>
+            <p class="form-label name_label h5">Project Name</p>
             <input type="text" class="form-control mb-3 project_name" value="${projects[i].name}">
-            <p class="form-label description_label">Project Description</p>
+            <p class="form-label description_label h5">Project Description</p>
             <input type="text" class="form-control mb-3 project_desc" value="${projects[i].description}">
-            <button onclick="delete_Project_input(${count})">Delete Above Project</button>
+            <button type="button" class="btn btn-primary mb-2" onclick="delete_Project_input(${count})">Delete Above Project</button>
         `
                 document.getElementById("projects").innerHTML += project_ele
                 ++count;
@@ -200,16 +208,16 @@
             for (let i = 0; i < experience.length; i++) {
 
                 let experience_ele = `
-            <p class="form-label">Title</p>
+            <p class="form-label h5">Title</p>
             <input type="text" class="form-control mb-3 experience_title" value="${experience[i]["title"]}">
-            <p class="form-label">Company</p>
+            <p class="form-label h5">Company</p>
             <input type="text" class="form-control mb-3 experience_company" value="${experience[i]["company"]}">
-            <p class="form-label">Start Date</p>
+            <p class="form-label h5">Start Date</p>
             <input type="text" class="form-control mb-3 experience_start" value="${experience[i]["start"]}">
-            <p class="form-label">End Date</p>
+            <p class="form-label h5">End Date</p>
             <input type="text" class="form-control mb-3 experience_end" value="${experience[i]["end"]}">
 
-            <button onclick="delete_experience_input(${count})">Delete Above Experience</button>
+            <button type="button" class="btn btn-primary mb-2" onclick="delete_experience_input(${count})">Delete Above Experience</button>
         `
                 document.getElementById("experience").innerHTML += experience_ele;
                 ++count;
@@ -219,10 +227,18 @@
 
         // add skills input box
         function add_skills_input(temp) {
-            let count = document.getElementsByClassName(`${temp}_input`).length;
-            // console.log(count)
-            document.getElementById(temp).innerHTML += `<input type="text" class="form-control mb-3 ${temp}_input"}>`;
-            document.getElementById(temp).innerHTML += `<button onclick="delete_skills_input('${temp}',${count})">Delete ${temp}</button>`
+            let count = 0;
+            let elements = document.getElementsByClassName(`${temp}_input`);
+            let t_str = "";
+            for (let i = 0; i < elements.length; ++i) {
+                t_str += `<input type="text" class="form-control mb-3 ${temp}_input" value='${elements[i].value}''>`;
+                t_str += `<button type="button" class="btn btn-primary mb-2" onclick="delete_skills_input('${temp}',${count})">Delete Above</button>`
+                ++count
+            }
+            t_str += `<input type="text" class="form-control mb-3 ${temp}_input"}>
+            <button type="button" class="btn btn-primary" onclick="delete_skills_input('${temp}',${count})">Delete Above</button>
+            `
+            document.getElementById(`${temp}`).innerHTML = t_str;
         }
         // to delete skills input box 
         function delete_skills_input(temp, index) {
@@ -233,23 +249,33 @@
                 if (i == index) {
                     continue;
                 }
-                t_str += `<input type="text" class="form-control mb-3 ${temp}_input" value=${elements[i].value}>`;
-                t_str += `<button onclick="delete_skills_input('${temp}',${count})">Delete ${temp}</button>`
+                t_str += `<input type="text" class="form-control mb-3 ${temp}_input" value='${elements[i].value}'>`;
+                t_str += `<button type="button" class="btn btn-primary mb-2" onclick="delete_skills_input('${temp}',${count})">Delete Above</button>`
                 ++count
             }
             document.getElementById(temp).innerHTML = t_str;
         }
         // to add_Education_input
         function add_Education_input() {
-            count = document.getElementsByClassName("College_input").length;
-            // confirm(count)
-            let temp = `<p class="form-label Degree_label">Degree</p> 
+            count = 0;         
+            let deg_input = document.getElementsByClassName(`Degree_input`);
+            let col_input = document.getElementsByClassName(`College_input`);
+            let t_str = ""
+            for (let i = 0; i < deg_input.length; ++i) {
+                t_str += `<p class="form-label Degree_label">Degree</p> 
+            <input type="text" class="form-control mb-3 Degree_input" value="${deg_input[i].value}">
+            <label class="form-label College_label">College</label> 
+            <input type="text" class="form-control mb-3 College_input" value="${col_input[i].value}">`;
+                t_str += `<button type="button" class="btn btn-primary mb-2" onclick="delete_Education_input(${count})">Delete Above Education</button>`;
+                ++count;
+            }
+            t_str += `<p class="form-label Degree_label">Degree</p> 
             <input type="text" class="form-control mb-3 Degree_input">
             <label class="form-label College_label">College</label> 
             <input type="text" class="form-control mb-3 College_input">
-            `
-            document.getElementById("Education").innerHTML += temp;
-            document.getElementById("Education").innerHTML += `<button onclick="delete_Education_input(${count})">Delete Above Education</button>`;
+            <button type="button" class="btn btn-primary mb-2" onclick="delete_Education_input(${count})">Delete Above Education</button>`;
+
+            document.getElementById("Education").innerHTML = t_str;
         }
         // to delete_Education_input
         function delete_Education_input(index) {
@@ -264,7 +290,7 @@
             <input type="text" class="form-control mb-3 Degree_input" value="${deg_input[i].value}">
             <label class="form-label College_label">College</label> 
             <input type="text" class="form-control mb-3 College_input" value="${col_input[i].value}">`;
-                t_str += `<button onclick="delete_Education_input(${count})">Delete Above Education</button>`;
+                t_str += `<button type="button" class="btn btn-primary mb-2" onclick="delete_Education_input(${count})">Delete Above Education</button>`;
                 ++count;
             }
             document.getElementById("Education").innerHTML = t_str;
@@ -272,14 +298,30 @@
 
         // to add_Project_input
         function add_Project_input() {
-            let count = document.getElementsByClassName("project_name").length;
-            document.getElementById("projects").innerHTML += `
+            let count = 0;
+
+            count = 0;
+            let project_name = document.getElementsByClassName(`project_name`);
+            let project_desc = document.getElementsByClassName(`project_desc`);
+            let t_str = ""
+            for (let i = 0; i < project_name.length; ++i) {
+                t_str += `
             <p class="form-label name_label">Project Name</p>
+            <input type="text" class="form-control mb-3 project_name" value="${project_name[i].value}">
+            <p class="form-label description_label">Project Description</p>
+            <input type="text" class="form-control mb-3 project_desc" value="${project_desc[i].value}">
+            <button type="button" class="btn btn-primary mb-2" onclick="delete_Project_input(${count})">Delete Above Project</button>
+        `;
+                ++count;
+            }
+            t_str += `<p class="form-label name_label">Project Name</p>
             <input type="text" class="form-control mb-3 project_name">
             <p class="form-label description_label">Project Description</p>
             <input type="text" class="form-control mb-3 project_desc">
-            <button onclick="delete_Project_input(${count})">Delete Above Project</button>
-        `;
+            <button type="button" class="btn btn-primary mb-2" onclick="delete_Project_input(${count})">Delete Above Project</button>`;
+
+            document.getElementById("projects").innerHTML = t_str;
+
         }
         // to delete_Project_input
         function delete_Project_input(index) {
@@ -295,7 +337,7 @@
             <input type="text" class="form-control mb-3 project_name" value="${project_name[i].value}">
             <p class="form-label description_label">Project Description</p>
             <input type="text" class="form-control mb-3 project_desc" value="${project_desc[i].value}">
-            <button onclick="delete_Project_input(${count})">Delete Above Project</button>
+            <button type="button" class="btn btn-primary mb-2" onclick="delete_Project_input(${count})">Delete Above Project</button>
         `;
                 ++count;
             }
@@ -303,9 +345,29 @@
         }
         // to add_experience_input
         function add_experience_input() {
-            let count = document.getElementsByClassName("experience_title").length;
-            document.getElementById("experience").innerHTML += `
-            <p class="form-label">Title</p>
+            count = 0;
+            let experience_title = document.getElementsByClassName(`experience_title`);
+            let experience_company = document.getElementsByClassName(`experience_company`);
+            let experience_start = document.getElementsByClassName(`experience_start`);
+            let experience_end = document.getElementsByClassName(`experience_end`);
+            let t_str = "";
+            for (let i = 0, count = 0; i < experience_title.length; ++i) {
+                t_str += `
+                <p class="form-label">Title</p>
+            <input type="text" class="form-control mb-3 experience_title" value="${experience_title[i].value}">
+            <p class="form-label">Company</p>
+            <input type="text" class="form-control mb-3 experience_company" value="${experience_company[i].value}">
+            <p class="form-label">Start Date</p>
+            <input type="text" class="form-control mb-3 experience_start" value="${experience_start[i].value}">
+            <p class="form-label">End Date</p>
+            <input type="text" class="form-control mb-3 experience_end" value="${experience_end[i].value}">
+
+            <button type="button" class="btn btn-primary mb-2" onclick="delete_experience_input(${count})">Delete Above Experience</button>
+        `;
+                ++count;
+            }
+
+            t_str += `<p class="form-label">Title</p>
             <input type="text" class="form-control mb-3 experience_title">
             <p class="form-label">Company</p>
             <input type="text" class="form-control mb-3 experience_company">
@@ -314,8 +376,10 @@
             <p class="form-label">End Date</p>
             <input type="text" class="form-control mb-3 experience_end">
 
-            <button onclick="delete_experience_input(${count})">Delete Above Experience</button>
-        `;
+            <button type="button" class="btn btn-primary mb-2" onclick="delete_experience_input(${count})">Delete Above Experience</button>`;
+
+            document.getElementById("experience").innerHTML = t_str;
+
         }
         // to delete experience
         function delete_experience_input(index) {
@@ -338,7 +402,7 @@
             <p class="form-label">End Date</p>
             <input type="text" class="form-control mb-3 experience_end" value="${experience_end[i].value}">
 
-            <button onclick="delete_experience_input(${count})">Delete Above Experience</button>
+            <button type="button" class="btn btn-primary mb-2" onclick="delete_experience_input(${count})">Delete Above Experience</button>
         `;
                 ++count;
             }
@@ -355,20 +419,20 @@
             let t_language = []
             let t_library_and_framework = []
             let t_other = []
-            let l_input = document.getElementsByClassName("language_input")
+            let l_input = document.getElementsByClassName("Languages_input")
             for (let i = 0; i < l_input.length; ++i) {
                 t_language.push(l_input[i].value)
             }
 
-            for (let i = 0; i < document.getElementsByClassName("library_and_framework_input").length; ++i) {
-                t_library_and_framework.push(document.getElementsByClassName("library_and_framework_input")[i].value)
+            for (let i = 0; i < document.getElementsByClassName("Library And Frameworks_input").length; ++i) {
+                t_library_and_framework.push(document.getElementsByClassName("Library And Frameworks_input")[i].value)
             }
-            for (let i = 0; i < document.getElementsByClassName("other_input").length; ++i) {
-                t_other.push(document.getElementsByClassName("other_input")[i].value)
+            for (let i = 0; i < document.getElementsByClassName("Others_input").length; ++i) {
+                t_other.push(document.getElementsByClassName("Others_input")[i].value)
             }
-            new_obj.skills.language = t_language;
-            new_obj.skills.library_and_framework = t_library_and_framework;
-            new_obj.skills.other = t_other;
+            new_obj.skills["Languages"] = t_language;
+            new_obj.skills["Library And Frameworks"] = t_library_and_framework;
+            new_obj.skills["Others"] = t_other;
             // update Education
             let t_Education = []
             for (let i = 0; i < document.getElementsByClassName("Degree_input").length; ++i) {

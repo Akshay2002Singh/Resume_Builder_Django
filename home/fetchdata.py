@@ -110,6 +110,8 @@ def api_call(git,linked,request):
             exp_dic.append(temp_exp)
             
         data_dic["Experience"] = exp_dic
+        data_dic["Acquirements"] = []
+        data_dic["position_of_responsibility"] = []
 
 
         # print data_dic for testing
