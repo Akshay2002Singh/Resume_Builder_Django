@@ -22,7 +22,7 @@ def api_call(git,linked,request):
     }
     headers = {
         "content-type": "application/json",
-        "X-RapidAPI-Key": "4057d2be1dmshf1fdeb188359618p151c1djsnae9faca23c70",
+        "X-RapidAPI-Key": "8be347dd0bmshcf0913c6d6c424fp1af42fjsncd6106c89176",
         "X-RapidAPI-Host": "linkedin-profiles-and-company-data.p.rapidapi.com"
     }
 
