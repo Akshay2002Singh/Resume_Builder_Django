@@ -49,6 +49,8 @@
         </div>
         <button onclick="add_experience_input()">Add Experience</button>
     </div>
+
+    <button onclick="submit_form()" class="mt-5">Submit</button>
     <script>
         var st = `{
     "success": 1,
@@ -129,7 +131,7 @@
         }
     ]
 }`
-        obj = JSON.parse(st)
+        var obj = JSON.parse(st);
 
         // render form from JSON obj 
         window.onload = function () {
@@ -341,6 +343,63 @@
                 ++count;
             }
             document.getElementById("experience").innerHTML = t_str;
+        }
+
+        function submit_form() {
+            let new_obj = obj;
+            // new_obj.success = 1;
+            // update name and Summary
+            new_obj.Name = document.getElementById("Name").value;
+            new_obj.Summary = document.getElementById("Summary").value;
+            // update skills
+            let t_language = []
+            let t_library_and_framework = []
+            let t_other = []
+            let l_input = document.getElementsByClassName("language_input")
+            for (let i = 0; i < l_input.length; ++i) {
+                t_language.push(l_input[i].value)
+            }
+
+            for (let i = 0; i < document.getElementsByClassName("library_and_framework_input").length; ++i) {
+                t_library_and_framework.push(document.getElementsByClassName("library_and_framework_input")[i].value)
+            }
+            for (let i = 0; i < document.getElementsByClassName("other_input").length; ++i) {
+                t_other.push(document.getElementsByClassName("other_input")[i].value)
+            }
+            new_obj.skills.language = t_language;
+            new_obj.skills.library_and_framework = t_library_and_framework;
+            new_obj.skills.other = t_other;
+            // update Education
+            let t_Education = []
+            for (let i = 0; i < document.getElementsByClassName("Degree_input").length; ++i) {
+                let temp = {};
+                temp["Degree"] = document.getElementsByClassName("Degree_input")[i].value;
+                temp["College"] = document.getElementsByClassName("Degree_input")[i].value;
+                t_Education.push(temp);
+            }
+            new_obj.Education = t_Education;
+            // update experience
+            let t_Experience = [];
+            for (let i = 0; i < document.getElementsByClassName("experience_title").length; ++i) {
+                let temp = {};
+                temp["title"] = document.getElementsByClassName("experience_title")[i].value;
+                temp["company"] = document.getElementsByClassName("experience_company")[i].value;
+                temp["start"] = document.getElementsByClassName("experience_start")[i].value;
+                temp["end"] = document.getElementsByClassName("experience_end")[i].value;
+                t_Experience.push(temp);
+            }
+            new_obj.Experience = t_Experience;
+            // update projects 
+            let Projects = [];
+            for (let i = 0; i < document.getElementsByClassName("project_name").length; ++i) {
+                let temp = {};
+                temp["name"] = document.getElementsByClassName("project_name")[i].value;
+                temp["description"] = document.getElementsByClassName("project_desc")[i].value;
+                Projects.push(temp);
+            }
+            new_obj.Projects = Projects;
+
+            console.log(new_obj);
         }
 
     </script>
