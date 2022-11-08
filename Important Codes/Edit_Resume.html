@@ -47,7 +47,7 @@
         <div id="experience">
 
         </div>
-        <button>Add Experience</button>
+        <button onclick="add_experience_input()">Add Experience</button>
     </div>
     <script>
         var st = `{
@@ -194,18 +194,23 @@
 
             let experience = obj["Experience"]
             // console.log(experience.length)
+            count = 0
             for (let i = 0; i < experience.length; i++) {
-                div_tag = document.createElement("div")
-                estring = `<label for="title-${i + 1}">Title</label><input class="form-control" id="title-${i + 1}">`
-                estring += `<label for="company-${i + 1}">Company</label><input class="form-control" id="company-${i + 1}">`
-                estring += `<label for="start-${i + 1}">Start</label><input class="form-control" id="start-${i + 1}">`
-                estring += `<label for="end-${i + 1}">End</label><input class="form-control" id="end-${i + 1}">`
-                div_tag.innerHTML = estring
-                document.getElementById("experience").appendChild(div_tag)
-                document.getElementById(`title-${i + 1}`).value = experience[i]["title"]
-                document.getElementById(`company-${i + 1}`).value = experience[i]["company"]
-                document.getElementById(`start-${i + 1}`).value = experience[i]["start"]
-                document.getElementById(`end-${i + 1}`).value = experience[i]["end"]
+
+                let experience_ele = `
+            <p class="form-label">Title</p>
+            <input type="text" class="form-control mb-3 experience_title" value="${experience[i]["title"]}">
+            <p class="form-label">Company</p>
+            <input type="text" class="form-control mb-3 experience_company" value="${experience[i]["company"]}">
+            <p class="form-label">Start Date</p>
+            <input type="text" class="form-control mb-3 experience_start" value="${experience[i]["start"]}">
+            <p class="form-label">End Date</p>
+            <input type="text" class="form-control mb-3 experience_end" value="${experience[i]["end"]}">
+
+            <button onclick="delete_experience_input(${count})">Delete Above Experience</button>
+        `
+                document.getElementById("experience").innerHTML += experience_ele;
+                ++count;
             }
 
         }
@@ -294,7 +299,49 @@
             }
             document.getElementById("projects").innerHTML = t_str;
         }
+        // to add_experience_input
+        function add_experience_input() {
+            let count = document.getElementsByClassName("experience_title").length;
+            document.getElementById("experience").innerHTML += `
+            <p class="form-label">Title</p>
+            <input type="text" class="form-control mb-3 experience_title">
+            <p class="form-label">Company</p>
+            <input type="text" class="form-control mb-3 experience_company">
+            <p class="form-label">Start Date</p>
+            <input type="text" class="form-control mb-3 experience_start">
+            <p class="form-label">End Date</p>
+            <input type="text" class="form-control mb-3 experience_end">
 
+            <button onclick="delete_experience_input(${count})">Delete Above Experience</button>
+        `;
+        }
+        // to delete experience
+        function delete_experience_input(index) {
+            let experience_title = document.getElementsByClassName(`experience_title`);
+            let experience_company = document.getElementsByClassName(`experience_company`);
+            let experience_start = document.getElementsByClassName(`experience_start`);
+            let experience_end = document.getElementsByClassName(`experience_end`);
+            let t_str = ""
+            for (let i = 0, count = 0; i < experience_title.length; ++i) {
+                if (i == index) {
+                    continue;
+                }
+                t_str += `
+                <p class="form-label">Title</p>
+            <input type="text" class="form-control mb-3 experience_title" value="${experience_title[i].value}">
+            <p class="form-label">Company</p>
+            <input type="text" class="form-control mb-3 experience_company" value="${experience_company[i].value}">
+            <p class="form-label">Start Date</p>
+            <input type="text" class="form-control mb-3 experience_start" value="${experience_start[i].value}">
+            <p class="form-label">End Date</p>
+            <input type="text" class="form-control mb-3 experience_end" value="${experience_end[i].value}">
+
+            <button onclick="delete_experience_input(${count})">Delete Above Experience</button>
+        `;
+                ++count;
+            }
+            document.getElementById("experience").innerHTML = t_str;
+        }
 
     </script>
 
