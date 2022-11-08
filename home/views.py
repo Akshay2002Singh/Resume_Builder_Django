@@ -101,13 +101,52 @@ def generate_data_form(request):
         return render(request,"generate.html")
 
 def show_resume(request):
-    user=users_data.objects.get(f_key=request.user)
-    user_details=json.loads(user.data)
-    user_details["email"] = request.user.email
+    user_details = {}
+    try:
+        user=users_data.objects.get(f_key=request.user)
+    except:
+        user = None
+    if user == None:
+        user_details["fetch_data_first"] = 1
+    else:
+        if user.fetch_done == 0:
+            user_details["fetch_data_first"] = 0
+            user_details["success"] = 0
+        else:
+            user_details=json.loads(user.data)
+            user_details["fetch_data_first"] = 0
+            user_details["email"] = request.user.email
     return render(request,'resume_template.html',context = user_details)
 
 def edit_resume(request):
-    user=users_data.objects.get(f_key=request.user)
-    user_details=json.loads(user.data)
+    # user=users_data.objects.get(f_key=request.user)
+    # return render(request,'edit_resume.html',context= {"Data" : user.data})
+    user_details = {}
+    try:
+        user=users_data.objects.get(f_key=request.user)
+    except:
+        user = None
+    if user == None:
+        return render(request,'edit_resume.html',context= {"fetch_data_first" : 1})
+    else:
+        if user.fetch_done == 0:
+            return render(request,'edit_resume.html',context= {"fetch_done" : 1})
 
-    return render(request,'edit_resume.html',context= {"Data" : user_details})
+    return render(request,'edit_resume.html',context= {"Data" : user.data})
+
+
+def edit_resume_form(request):
+    context = {
+        "login" : 0
+        }
+    if request.user.is_authenticated:
+        context["login"]=1
+        context["user"]=request.user.get_username()
+
+    if request.method == "POST":
+        data = request.POST.get('json_string')
+        temp = users_data.objects.get(f_key=request.user)
+        temp.data = data
+        temp.save()
+        return render(request,'index.html',context)
+

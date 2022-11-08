@@ -12,60 +12,90 @@
 
 <body>
     <div class="container">
-    <div id="name">
-        <div class="form-group">
-            <label for="Name" class="form-label h5">Name</label>
-            <input type="text" class="form-control mb-3" id="Name">
+        <div id="name">
+            <div class="form-group">
+                <label for="Name" class="form-label h5">Name</label>
+                <input type="text" class="form-control mb-3" id="Name">
+            </div>
+            <div class="form-group">
+                <label for="Summary" class="form-label h5">Description</label>
+                <input type="text" class="form-control mb-3" id="Summary">
+            </div>
         </div>
-        <div class="form-group">
-            <label for="Summary" class="form-label h5">Description</label>
-            <input type="text" class="form-control mb-3" id="Summary">
-        </div>
-    </div>
-    <div id="Skills_main_box">
-        <h2  class="alert alert-danger d-flex justify-content-center fw-bold" role="alert">Skills</h2>
-        <div id="Skills">
+        <div id="Education_main_box">
+            <h2 class="alert alert-danger  d-flex justify-content-center fw-bold" role="alert">Education</h2>
+            <div id="Education">
 
+            </div>
+            <div class="d-grid">
+                <button type="button" type="button" class="btn btn-secondary mb-3 " onclick="add_Education_input()"
+                    style="background-color: #cff4fc; color: black; border: none; font-weight: 600;">Add
+                    Education</button>
+            </div>
         </div>
-    </div>
-    <div id="Education_main_box">
-        <h2 class="alert alert-danger  d-flex justify-content-center fw-bold" role="alert">Education</h2>
-        <div id="Education">
+        <div id="Skills_main_box">
+            <h2 class="alert alert-danger d-flex justify-content-center fw-bold" role="alert">Skills</h2>
+            <div id="Skills">
 
+            </div>
         </div>
+        <!-- position_of_responsibility -->
+        <div id="position_of_responsibility_main_box">
+            <h2 class="alert alert-danger  d-flex justify-content-center fw-bold" role="alert">Position Of Responsibility</h2>
+            <div id="position_of_responsibility"></div>
+            <div class="d-grid mb-3">
+                <button type="button" class="btn btn-secondary" onclick="add_position_of_responsibility_input()"
+                    style="background-color: #cff4fc; color: black; border: none; font-weight: 600;">Add
+                    Position Of Responsibility</button>
+            </div>
+        </div>
+        <!-- experience -->
+        <div id="experience_main_box">
+            <h2 class="alert alert-danger  d-flex justify-content-center fw-bold" role="alert">Experience</h2>
+            <div id="experience">
+
+            </div>
+            <div class="d-grid mb-3">
+                <button type="button" class="btn btn-secondary" onclick="add_experience_input()"
+                    style="background-color: #cff4fc; color: black; border: none; font-weight: 600;">Add
+                    Experience</button>
+            </div>
+        </div>
+        <!-- project -->
+        <div id="projects_main_box">
+            <h2 class="alert alert-danger  d-flex justify-content-center fw-bold" role="alert">Projects</h2>
+            <div id="projects">
+
+            </div>
+            <div class="d-grid">
+                <button type="button" class="btn btn-secondary mb-3" onclick="add_Project_input()"
+                    style="background-color: #cff4fc; color: black; border: none; font-weight: 600;">Add
+                    Project</button>
+            </div>
+        </div>
+
+        <!-- Acquirements -->
+        <div id="Acquirements_main_box">
+            <h2 class="alert alert-danger  d-flex justify-content-center fw-bold" role="alert">Acquirements Or Achievements</h2>
+            <div id="Acquirements"></div>
+            <div class="d-grid mb-3">
+                <button type="button" class="btn btn-secondary" onclick="add_Acquirements_input()"
+                    style="background-color: #cff4fc; color: black; border: none; font-weight: 600;">Add
+                    Acquirements</button>
+            </div>
+        </div>
+
         <div class="d-grid">
-            <button type="button" type="button" class="btn btn-secondary mb-3 " onclick="add_Education_input()" style="background-color: #cff4fc; color: black; border: none; font-weight: 600;">Add Education</button>
+            <button type="button" class="btn btn-danger" onclick="submit_form()" class="mt-3">Submit</button>
         </div>
     </div>
-
-    <div id="projects_main_box">
-        <h2 class="alert alert-danger  d-flex justify-content-center fw-bold" role="alert">Projects</h2>
-        <div id="projects">
-
-        </div><div class="d-grid">
-            <button type="button" class="btn btn-secondary mb-3" onclick="add_Project_input()" style="background-color: #cff4fc; color: black; border: none; font-weight: 600;">Add Project</button>
-        </div>
-    </div>
-    <div id="experience_main_box">
-        <h2 class="alert alert-danger  d-flex justify-content-center fw-bold" role="alert">Experience</h2>
-        <div id="experience">
-
-        </div>
-        <div class="d-grid mb-3">
-            <button type="button" class="btn btn-secondary" onclick="add_experience_input()" style="background-color: #cff4fc; color: black; border: none; font-weight: 600;">Add Experience</button>
-        </div>
-    </div>
-    <div class="d-grid">
-        <button type="button" class="btn btn-danger" onclick="submit_form()" class="mt-3">Submit</button>
-    </div>
-</div> 
     <script>
         var st = `{
     "success": 1,
     "Name": "Akshay Singh",
     "Summary": "Computer Science enthusiast with some Web and Android Development background, and I \ud83d\udc9e\ufe0f to code.",
     "skills": {
-        "Languages": [
+        "language": [
             "C (Programming Language)",
             "C++",
             "Cascading Style Sheets (CSS)",
@@ -75,11 +105,11 @@
             "JavaScript",
             "Kotlin"
         ],
-        "Library And Frameworks": [
+        "library_and_framework": [
             "Django",
             "React.js"
         ],
-        "Others": [
+        "other": [
             "Adobe Photoshop",
             "Microsoft Office"
         ]
@@ -112,6 +142,8 @@
             "end": "9/2021"
         }
     ],
+    "Acquirements": ["hack","box","qq","4343","5et543df"],
+    "position_of_responsibility": ["head of acm"],
     "Projects": [
         {
             "name": "E_library_using_django",
@@ -138,7 +170,7 @@
             "description": "This project is made using HTML, Python."
         }
     ]
-}`
+}`;
         var obj = JSON.parse(st);
 
         // render form from JSON obj 
@@ -152,7 +184,7 @@
                 let div_ele = `<div  id="${i}"></div>`
                 document.getElementById("Skills").innerHTML += div_ele;
                 // console.log(i)
-                let label_ele=`<label class="alert alert-danger fs-4 py-1 d-flex justify-content-center fw-bold">${i}</label>`
+                let label_ele = `<label class="alert alert-danger fs-4 py-1 d-flex justify-content-center fw-bold">${i}</label>`
                 document.getElementById(i).innerHTML += label_ele;
                 let count = 0;
                 for (let x in obj["skills"][i]) {
@@ -183,6 +215,35 @@
                     // console.log(element)  
                 }
                 document.getElementById("Education").innerHTML += `<button type="button" class="btn btn-primary mb-2" onclick="delete_Education_input(${count})">Delete Above Education</button>`;
+                ++count;
+            }
+
+            // position_of_responsibility
+            count = 0;
+            position_of_responsibility = obj["position_of_responsibility"]
+            for (var i = 0; i < position_of_responsibility.length; i++) {
+                // console.log(projects[i]["description"])
+                let project_ele = `
+            <p class="form-label name_label h5">Position</p>
+            <input type="text" class="form-control mb-3 position_of_responsibility_name" value="${position_of_responsibility[i]}">
+            <button type="button" class="btn btn-primary mb-2" onclick="delete_position_of_responsibility_input(${count})">Delete Above Position of Responsibility</button>
+        `;
+                document.getElementById("position_of_responsibility").innerHTML += project_ele
+                ++count;
+            }
+
+
+            // Acquirements
+            count = 0;
+            let Acquirements = obj["Acquirements"]
+            for (var i = 0; i < Acquirements.length; i++) {
+                // console.log(projects[i]["description"])
+                let project_ele = `
+            <p class="form-label name_label h5">Acquirement Title</p>
+            <input type="text" class="form-control mb-3 Acquirements_name" value="${Acquirements[i]}">
+            <button type="button" class="btn btn-primary mb-2" onclick="delete_Acquirements_input(${count})">Delete Above Acquirements</button>
+        `;
+                document.getElementById("Acquirements").innerHTML += project_ele
                 ++count;
             }
 
@@ -255,9 +316,49 @@
             }
             document.getElementById(temp).innerHTML = t_str;
         }
+
+        // to add_position_of_responsibility_input
+        function add_position_of_responsibility_input(){
+            count = 0;
+            let position_of_responsibility = document.getElementsByClassName(`position_of_responsibility_name`);
+            let t_str = ""
+            for (let i = 0; i < position_of_responsibility.length; ++i) {
+                t_str += `
+                <p class="form-label name_label h5">Position</p>
+            <input type="text" class="form-control mb-3 position_of_responsibility_name" value="${position_of_responsibility[i].value}">
+            <button type="button" class="btn btn-primary mb-2" onclick="delete_position_of_responsibility_input(${count})">Delete Above Position of Responsibility</button>
+                `;
+                ++count;
+            }
+            t_str += `
+            <p class="form-label name_label h5">Position</p>
+            <input type="text" class="form-control mb-3 position_of_responsibility_name">
+            <button type="button" class="btn btn-primary mb-2" onclick="delete_position_of_responsibility_input(${count})">Delete Above Position of Responsibility</button>
+            `;
+            document.getElementById("position_of_responsibility").innerHTML = t_str;
+        }
+        // to delete position_of_responsibility 
+        function delete_position_of_responsibility_input(index){
+            count = 0;
+            let position_of_responsibility = document.getElementsByClassName(`position_of_responsibility_name`);
+            let t_str = ""
+            for (let i = 0; i < position_of_responsibility.length; ++i) {
+                if(i==index){
+                    continue;
+                }
+                t_str += `
+                <p class="form-label name_label h5">Position</p>
+            <input type="text" class="form-control mb-3 position_of_responsibility_name" value="${position_of_responsibility[i].value}">
+            <button type="button" class="btn btn-primary mb-2" onclick="delete_position_of_responsibility_input(${count})">Delete Above Position of Responsibility</button>
+                `;
+                ++count;
+            }
+            document.getElementById("position_of_responsibility").innerHTML = t_str;
+        }
+
         // to add_Education_input
         function add_Education_input() {
-            count = 0;         
+            count = 0;
             let deg_input = document.getElementsByClassName(`Degree_input`);
             let col_input = document.getElementsByClassName(`College_input`);
             let t_str = ""
@@ -409,6 +510,47 @@
             document.getElementById("experience").innerHTML = t_str;
         }
 
+        // to add_Acquirements
+        function add_Acquirements_input(){
+            let count = 0;
+            let Acquirements = document.getElementsByClassName(`Acquirements_name`);
+            let t_str = ""
+            for (let i = 0; i < Acquirements.length; ++i) {
+                t_str += `
+                <p class="form-label name_label h5">Acquirement Title</p>
+            <input type="text" class="form-control mb-3 Acquirements_name" value="${Acquirements[i].value}">
+            <button type="button" class="btn btn-primary mb-2" onclick="delete_Acquirements_input(${count})">Delete Above Acquirements</button>
+                `;
+                ++count;
+            }
+            t_str += `
+            <p class="form-label name_label h5">Acquirement Title</p>
+            <input type="text" class="form-control mb-3 Acquirements_name">
+            <button type="button" class="btn btn-primary mb-2" onclick="delete_Acquirements_input(${count})">Delete Above Acquirements</button>
+            `;
+            document.getElementById("Acquirements").innerHTML = t_str;
+        }
+        // to delete position_of_responsibility 
+        function delete_Acquirements_input(index){
+            let count = 0;
+            let Acquirements = document.getElementsByClassName(`Acquirements_name`);
+            let t_str = ""
+            for (let i = 0; i < Acquirements.length; ++i) {
+                if(i==index){
+                    continue;
+                }
+                t_str += `
+                <p class="form-label name_label h5">Acquirement Title</p>
+            <input type="text" class="form-control mb-3 Acquirements_name" value="${Acquirements[i].value}">
+            <button type="button" class="btn btn-primary mb-2" onclick="delete_Acquirements_input(${count})">Delete Above Acquirements</button>
+                `;
+                ++count;
+            }
+
+            document.getElementById("Acquirements").innerHTML = t_str;
+        }
+
+
         function submit_form() {
             let new_obj = obj;
             // new_obj.success = 1;
@@ -442,6 +584,21 @@
                 t_Education.push(temp);
             }
             new_obj.Education = t_Education;
+
+            // update position_of_responsibility
+            let por = []
+            for (let i = 0; i < document.getElementsByClassName("position_of_responsibility_name").length; ++i) {
+                por.push(document.getElementsByClassName("position_of_responsibility_name")[i].value);
+            }
+            new_obj.position_of_responsibility = por;
+            
+            // update Acquirements
+            let acq = []
+            for (let i = 0; i < document.getElementsByClassName("Acquirements_name").length; ++i) {
+                acq.push(document.getElementsByClassName("Acquirements_name")[i].value);
+            }
+            new_obj.Acquirements = acq;
+
             // update experience
             let t_Experience = [];
             for (let i = 0; i < document.getElementsByClassName("experience_title").length; ++i) {
