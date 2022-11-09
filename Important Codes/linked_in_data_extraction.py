@@ -4,7 +4,7 @@ import requests
 # making request to get data 
 url = "https://linkedin-profiles-and-company-data.p.rapidapi.com/profile-details"
 
-username = "akshay-singh-elite"
+username = "yatin-singhal-838594201"
 
 payload = {
 	"profile_id": username,
@@ -15,7 +15,7 @@ payload = {
 }
 headers = {
 	"content-type": "application/json",
-	"X-RapidAPI-Key": "4057d2be1dmshf1fdeb188359618p151c1djsnae9faca23c70",
+	"X-RapidAPI-Key": "8be347dd0bmshcf0913c6d6c424fp1af42fjsncd6106c89176",
 	"X-RapidAPI-Host": "linkedin-profiles-and-company-data.p.rapidapi.com"
 }
 
@@ -27,8 +27,9 @@ json_obj = json.loads(response.content)
 # print(json.dumps(json_obj, indent = 3))
 
 # code to create a new json file and save data of API 
-with open("t.json",'w') as f:
-    f.write(json.dumps(json_obj, indent = 3))
+# with open("t.json",'w') as f:
+#     f.write(json.dumps(json_obj, indent = 3))
+
 
 
 # Creating new dict to save data in more understandable form 
@@ -39,9 +40,12 @@ data_dic["Name"] = json_obj["first_name"] + " " + json_obj["last_name"]
 data_dic["Summary"] = json_obj["summary"]
 
 # divide skills into language, frameworks, other 
-lang = ["c","c++","java","python","javascript","kotlin","html","css","html5","css3","php","r",'python (programming Language)','cascading style sheets (css)','c (programming language)','html5','sql']
-liby_and_fram = ['bootstrap','django','react.js','flutter','angularjs','angular']
-other = ["microsoft powerPoint","microsoft office","adobe photoshop"]
+lang = ["c","c++","java","python","javascript","kotlin","html","css","html5","css3","php","r",'python (programming Language)','cascading style sheets (css)','c (programming language)','html5','sql','ruby',"swift"]
+liby_and_fram =  ['bootstrap','django','react.js','flutter','angularjs','.net framework','angular','flask','node.js','angular.js','vue.js','tailwind css','jQuery','spring framework','hibernate','spring boot','spring mvc',"jquery"]
+other =  ["microsoft powerPoint","microsoft office","adobe photoshop","microsoft word","microsoft excel",
+"adobe illustrator","adobe indesign","machine learning","data analysis","data science","big data","software developement","graphic developement","digital marketing","event management","project management","microsoft azure","problem solving","video editing","communication"]
+
+
 temp = {'language' : [], 'library_and_framework' : [] , 'other' : []}
 for i in json_obj["skills"]:
     if i.lower() in lang:
@@ -56,20 +60,21 @@ temp["other"].sort()
 data_dic['skills'] = temp
 
 # Extract Education 
+
 edu_dic = []
 for i in json_obj["education"]:
     temp_edu = {}
     degree_name = i["degree_name"]
     field_of_study = i["field_of_study"]
 
-    if (not degree_name) and (not field_of_study):
+    if (degree_name) and ( field_of_study):
         temp_edu["Degree"] = degree_name + ", " + field_of_study
-    elif (not degree_name):
+    elif (not degree_name) and field_of_study:
         temp_edu["Degree"] = field_of_study
-    elif not field_of_study:
+    elif (not field_of_study) and degree_name:
         temp_edu["Degree"] = degree_name
     else:
-        temp_edu["Degree"] = degree_name + ", " + field_of_study
+        temp_edu["Degree"] = ""
 
     school_name = str(i["school"]["name"])
     if not school_name:
@@ -77,11 +82,11 @@ for i in json_obj["education"]:
     
     start_year = str(i["date"]["start"]["year"])
     end_year = str(i["date"]["end"]["year"])
-    if start_year and end_year and school_name != "":
+    # print(start_year)
+    if start_year!="None" and end_year!="None" and school_name != "":
         temp_edu["College"] = school_name + " (" + start_year + " - " + end_year + ")"
     elif school_name !="":
-        if (not start_year) or (not end_year):
-             temp_edu["College"] = school_name
+        temp_edu["College"] = school_name
     else:
         temp_edu["College"] =  ""
 

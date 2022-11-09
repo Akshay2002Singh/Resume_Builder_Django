@@ -42,9 +42,13 @@ def api_call(git,linked,request):
         data_dic["Summary"] = json_obj["summary"]
 
         # divide skills into language, frameworks, other 
-        lang = ["c","c++","java","python","javascript","kotlin","html","css","html5","css3","php","r",'python (programming Language)','cascading style sheets (css)','c (programming language)','html5','sql']
-        liby_and_fram = ['bootstrap','django','react.js','flutter','angularjs','angular']
-        other = ["microsoft powerPoint","microsoft office","adobe photoshop"]
+        # divide skills into language, frameworks, other 
+        lang = ["c","c++","java","python","javascript","kotlin","html","css","html5","css3","php","r",'python (programming Language)','cascading style sheets (css)','c (programming language)','html5','sql','ruby',"swift"]
+        liby_and_fram =  ['bootstrap','django','react.js','flutter','angularjs','.net framework','angular','flask','node.js','angular.js','vue.js','tailwind css','jQuery','spring framework','hibernate','spring boot','spring mvc',"jquery"]
+        other =  ["microsoft powerPoint","microsoft office","adobe photoshop","microsoft word","microsoft excel",
+        "adobe illustrator","adobe indesign","machine learning","data analysis","data science","big data","software developement","graphic developement","digital marketing","event management","project management","microsoft azure","problem solving","video editing","communication"]
+
+
         temp = {'language' : [], 'library_and_framework' : [] , 'other' : []}
         for i in json_obj["skills"]:
             if i.lower() in lang:
@@ -59,20 +63,21 @@ def api_call(git,linked,request):
         data_dic['skills'] = temp
 
         # Extract Education 
+
         edu_dic = []
         for i in json_obj["education"]:
             temp_edu = {}
             degree_name = i["degree_name"]
             field_of_study = i["field_of_study"]
 
-            if (not degree_name) and (not field_of_study):
+            if (degree_name) and ( field_of_study):
                 temp_edu["Degree"] = degree_name + ", " + field_of_study
-            elif (not degree_name):
+            elif (not degree_name) and field_of_study:
                 temp_edu["Degree"] = field_of_study
-            elif not field_of_study:
+            elif (not field_of_study) and degree_name:
                 temp_edu["Degree"] = degree_name
             else:
-                temp_edu["Degree"] = degree_name + ", " + field_of_study
+                temp_edu["Degree"] = ""
 
             school_name = str(i["school"]["name"])
             if not school_name:
@@ -80,18 +85,17 @@ def api_call(git,linked,request):
             
             start_year = str(i["date"]["start"]["year"])
             end_year = str(i["date"]["end"]["year"])
-            if start_year and end_year and school_name != "":
+            # print(start_year)
+            if start_year!="None" and end_year!="None" and school_name != "":
                 temp_edu["College"] = school_name + " (" + start_year + " - " + end_year + ")"
             elif school_name !="":
-                if (not start_year) or (not end_year):
-                    temp_edu["College"] = school_name
+                temp_edu["College"] = school_name
             else:
                 temp_edu["College"] =  ""
 
             edu_dic.append(temp_edu)
 
         data_dic["Education"] = edu_dic
-
 
         # Experience
         exp_dic = []
@@ -120,7 +124,6 @@ def api_call(git,linked,request):
         # print("Data can not be retrived")
         data_dic["success"] = 0
 
-    print
     # fetch github data 
     # username="Akshay2002Singh"
     git_key = ""
@@ -135,7 +138,7 @@ def api_call(git,linked,request):
     try:
         jsonresponse=requests.get(apistring,headers=headers).json()
         print()
-        # print(jsonresponse)
+        print(jsonresponse)
         best_repos = list()
         all_repos = list()
         c = 1
@@ -153,13 +156,20 @@ def api_call(git,linked,request):
                 else:
                     all_repos.append({"name": repos["name"]})
 
+        
         if len(best_repos) < 6:
             for i in range(0, len(all_repos)):
                 repo_dict = all_repos[i]
                 repo_name = repo_dict["name"]
                 repo_url = f"https://api.github.com/repos/{username}/{repo_name}/contributors"
-                repojson = requests.get(repo_url, headers=headers).json()
-                all_repos[i].update({"commits": repojson[0]["contributions"]})
+                # print(repo_url)
+                try:
+                    repojson = requests.get(repo_url, headers=headers).json()
+                    # print(repojson)
+                    # print(repojson[0]["contributions"])
+                    all_repos[i].update({"commits": repojson[0]["contributions"]})
+                except:
+                    all_repos[i].update({"commits": 0})
             all_repos.sort(key=lambda r: r["commits"], reverse=True)
             all_repos = all_repos[:6]
             # print(all_repos)
@@ -170,14 +180,18 @@ def api_call(git,linked,request):
                     f"https://api.github.com/repos/{username}/{repo_name}/languages",
                     headers=headers,
                 ).json()
+                # print(languagejson)
                 for key in languagejson:
                     languages_used.append(key)
 
                 desc = "This project is made using "
-                desc += str(languages_used[0])
+                if len(languages_used) == 0:
+                    desc += "None."
+                else:
+                    desc += str(languages_used[0])
                 if len(languages_used) == 1:
                     desc += "."
-                else:
+                elif len(languages_used) > 1:
                     for i in range(1, len(languages_used) - 1):
                         desc = desc + ", " + str(languages_used[i])
                     desc = desc +", " + str(languages_used[-1]) + "."
@@ -191,7 +205,6 @@ def api_call(git,linked,request):
         
         data_dic["Projects"] = best_repos
     except:
-        # print("data can not be fetched")
         data_dic["success"] = 0
     # print(json.dumps(data_dic, indent = 3))
     # return data_dic
