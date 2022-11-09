@@ -16,7 +16,7 @@
   {% include "nav.html" %}
 
   <!-- alert -->
-  <div class="alert alert-danger mb-0 text-center fw-bold fs-3" role="alert">
+  <div class="alert alert-danger mb-0 text-center fw-bold fs-3" role="alert" id="alert_msg">
     Welcome to World of Automation.
   </div>
   <!-- carousel -->
@@ -56,17 +56,34 @@
           required>
       </div>
     </form>
-    <p class="text-center"><button class="btn btn-danger" onclick="Submit_form()">Submit</button>
+    <p class="text-center"><button class="btn btn-danger" onclick="Submit_form()" id="submit_btn">
+      <span id="Submit_text" id = "Submit_text">Submit</span> 
+
+      <div class="d-flex justify-content-center">
+        <div class="spinner-border text-info" role="status"  id="loader" style="display: none;">
+          <span class="visually-hidden" id="loader">Loading...</span>
+        </div>
+      </div>
+    </button>
     </p>
   </div>
   <!-- footer -->
   {% include "footer.html" %}
   <script>
     function Submit_form() {
+      document.getElementById("alert_msg").textContent = "Wait for Magic to Occur."
+      document.getElementById("loader").style.display = "block";
+      document.getElementById("Submit_text").style.display = "none";
+      document.getElementById("submit_btn").disabled = true;
+
       let git = document.getElementById("login_username").value;
       let linked = document.getElementById("login_password").value;
       if (git == "" || linked == "") {
         confirm("Username Can Not Be Empty");
+        document.getElementById("alert_msg").textContent = "Username Can not be Empty."
+        document.getElementById("loader").style.display = "none";
+        document.getElementById("Submit_text").style.display = "block";
+        document.getElementById("submit_btn").disabled = false;
         return;
       }
 
@@ -112,11 +129,15 @@
           }
         }
         );
+            
       if (submit_flag == 1) {
-        document.getElementById("main_form").submit();
-
+        // document.getElementById("main_form").submit();
+        confirm("submit");
       }
-
+      document.getElementById("alert_msg").textContent = "Enter Correct Username, Wrong Username can lead to Black Magic.";
+      document.getElementById("loader").style.display = "none";
+      document.getElementById("Submit_text").style.display = "block";
+      document.getElementById("submit_btn").disabled = false;
     }
 
 
