@@ -26,28 +26,40 @@
     <title>Login</title>
 </head>
 <body>
-    <div class="container" id="Contact-us">
-        <div class="selfhead text-center py-0 ">
-            Login
-        </div>
-        <img src="{% static 'images/login.jpg' %}" class="img-fluid" style="width: 100%; height: 60vh;" alt="Responsive image">
-    </div>
 
+    <div class="container" id="Contact-us">
+        <div class="selfhead text-center py-0">
+            SignUp
+        </div>
+        <img src="{% static 'images/login.jpg' %}" class="img-fluid" alt="Responsive image">
+    </div>
+    
     <div class="container my-3">
-        <form method="post" action="/login_user_form">
+        <form method="post" action="/create_user_form">
             {%csrf_token%}
             <div class="mb-3">
-              <label for="login_username" class="form-label fw-bold">User Name</label>
-              <input type="text" class="form-control" id="login_username" aria-describedby="emailHelp" placeholder="Enter your user name" name="username"> 
+                <label for="form_name" class="form-label fw-bold">Your Name</label>
+                <input type="text" class="form-control" id="form_name" placeholder="Enter Your Name" name="name">
             </div>
             <div class="mb-3">
-              <label for="login_password" class="form-label fw-bold">Password</label>
-              <input type="password" class="form-control" id="login_password" placeholder="Enter your password" name="password">
+                <label for="form_email" class="form-label fw-bold">Your Email address</label>
+                <input type="email" class="form-control" id="form_email" aria-describedby="emailHelp"
+                    placeholder="Enter Your Email" name="email">
+                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
             </div>
-            <p class="text-center"><button type="submit" class="btn btn-danger">Submit</button>
-            </p>
-          </form>
-          <p class="text-center"><a href="/create_user"><button class="btn btn btn-outline-success fw-bold">Create Account</button></a></p>
+            <div class="mb-3">
+                <label for="form_user" class="form-label fw-bold">User Name</label>
+                <input type="text" class="form-control" id="form_user" aria-describedby="emailHelp" name="username"
+                    placeholder="Enter Your User Name">
+            </div>
+            <div class="mb-3">
+                <label for="form_pass" class="form-label fw-bold">Password</label>
+                <input type="password" class="form-control" id="form_pass" name="password"
+                    placeholder="Enter Your Password">
+            </div>
+            <p class="text-center"><button type="submit" class="btn btn-danger">Submit</button></p>
+        </form>
+        <p class="text-center"><a href="/login"><button class="btn btn btn-outline-success fw-bold">Already have an account</button></a></p>
     </div>
       
 
