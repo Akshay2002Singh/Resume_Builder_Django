@@ -130,15 +130,15 @@ def api_call(git,linked,request):
     with open("gat_key.txt","r") as f:
         git_key = f.read()
         git_key = git_key.strip()
-        print(git_key)
+        # print(git_key)
 
     username = git
     apistring=f"https://api.github.com/users/{username}/repos"
     headers={"Authorization":f"Bearer {git_key}"}
     try:
         jsonresponse=requests.get(apistring,headers=headers).json()
-        print()
-        print(jsonresponse)
+        # print()
+        # print(jsonresponse)
         best_repos = list()
         all_repos = list()
         c = 1
@@ -156,7 +156,7 @@ def api_call(git,linked,request):
                 else:
                     all_repos.append({"name": repos["name"]})
 
-        
+        best_repos = best_repos[:6]
         if len(best_repos) < 6:
             for i in range(0, len(all_repos)):
                 repo_dict = all_repos[i]
